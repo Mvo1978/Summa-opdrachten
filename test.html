@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testpagina — GitHub Pages werkt!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f4f8;
+      color: #1a202c;
+    }
+    .kaart {
+      background: white;
+      border-radius: 12px;
+      padding: 40px 48px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+      text-align: center;
+      max-width: 480px;
+    }
+    .vinkje { font-size: 56px; margin-bottom: 16px; }
+    h1 { font-size: 22px; margin-bottom: 10px; color: #1e3a5f; }
+    p  { font-size: 15px; color: #4a5568; line-height: 1.6; }
+    .badge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 18px;
+      background: #e2efda;
+      color: #375623;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    button {
+      margin-top: 24px;
+      padding: 10px 24px;
+      background: #1e3a5f;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+    button:hover { background: #274f80; }
+    #resultaat {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #375623;
+      font-weight: 600;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="kaart">
+    <div class="vinkje">✅</div>
+    <h1>GitHub Pages werkt!</h1>
+    <p>
+      Als je deze pagina ziet, is het gelukt om een HTML-bestand
+      via GitHub Pages te publiceren. Je kunt deze URL nu in
+      Canvas gebruiken als iframe.
+    </p>
+    <div class="badge">Summa College — ICT Servicedesk Skills</div>
+    <br>
+    <button onclick="klikTest()">🧪 Klik om te testen</button>
+    <div id="resultaat"></div>
+  </div>
+
+  <script>
+    let teller = 0;
+    function klikTest() {
+      teller++;
+      document.getElementById('resultaat').textContent =
+        '✓ Knop werkt! Je hebt ' + teller + 'x geklikt.';
+    }
+  </script>
+</body>
+</html>
