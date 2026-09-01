@@ -12,7 +12,6 @@
     --groen-fg: #375623;
     --grijs:    #f2f2f2;
     --rand:     #d0d7de;
-    --wit:      #ffffff;
     --font:     'Segoe UI', Arial, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,50 +33,95 @@
 
   .container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
 
-  /* INSTRUCTIEBLOK */
-  .instructie {
-    background: white;
-    border-radius: 10px;
+  /* BLOKKEN */
+  .blok {
+    background: white; border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    border-left: 6px solid var(--groen);
-    padding: 24px 28px;
-    margin-bottom: 24px;
+    padding: 24px 28px; margin-bottom: 20px;
   }
-  .instructie h2 {
-    font-size: 17px; font-weight: 700;
-    color: var(--blauw); margin-bottom: 14px;
-    display: flex; align-items: center; gap: 10px;
+  .blok-groen { border-left: 6px solid var(--groen); }
+  .blok-blauw { border-left: 6px solid var(--blauw); }
+  .blok-oranje { border-left: 6px solid #e07b00; }
+
+  .blok h2 {
+    font-size: 16px; font-weight: 700; color: var(--blauw);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
   }
-  .instructie p {
-    font-size: 14px; line-height: 1.7; color: #2d3748; margin-bottom: 14px;
+  .blok p {
+    font-size: 14px; line-height: 1.7; color: #2d3748; margin-bottom: 12px;
   }
-  .instructie p:last-child { margin-bottom: 0; }
-  .stappen {
-    list-style: none; padding: 0;
-    display: grid; gap: 10px;
-    margin-bottom: 14px;
-  }
+  .blok p:last-child { margin-bottom: 0; }
+
+  /* STAPPEN */
+  .stappen { list-style: none; padding: 0; display: grid; gap: 10px; margin-bottom: 14px; }
   .stappen li {
     display: flex; gap: 14px; align-items: flex-start;
     background: var(--groen-bg); border-radius: 8px;
     padding: 12px 16px; font-size: 14px; line-height: 1.6;
   }
   .stap-nr {
-    background: var(--groen); color: white;
-    font-weight: 700; font-size: 13px;
+    background: var(--groen); color: white; font-weight: 700; font-size: 13px;
     width: 26px; height: 26px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
   }
   .stap-tekst strong { color: var(--blauw); }
-  .tip-blok {
+
+  /* TIP */
+  .tip {
     background: #fff9e6; border: 1px solid #ffc107;
     border-radius: 8px; padding: 12px 16px;
     font-size: 13.5px; color: #7d6608; line-height: 1.6;
   }
-  .tip-blok strong { color: #5a4606; }
+  .tip strong { color: #5a4606; }
 
-  /* KNOPPEN */
+  /* FORMULIER SECTIE */
+  .formulier-uitleg {
+    font-size: 14px; line-height: 1.7; color: #2d3748; margin-bottom: 16px;
+  }
+  .formulier-velden {
+    background: var(--grijs); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 20px;
+  }
+  .formulier-velden h3 {
+    font-size: 14px; font-weight: 700; color: var(--blauw);
+    margin-bottom: 10px;
+  }
+  .veld-lijst {
+    list-style: none; padding: 0; display: grid; gap: 6px;
+  }
+  .veld-lijst li {
+    font-size: 13.5px; display: flex; gap: 10px; align-items: flex-start;
+    padding: 4px 0; border-bottom: 1px solid #e0e2e5;
+    line-height: 1.5;
+  }
+  .veld-lijst li:last-child { border-bottom: none; }
+  .veld-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .veld-naam { font-weight: 600; color: #1a202c; min-width: 180px; }
+  .veld-info { color: #4a5568; }
+
+  /* DOWNLOAD KNOP */
+  .download-sectie {
+    display: flex; align-items: center; gap: 16px;
+    background: #f0f4f8; border-radius: 10px;
+    padding: 18px 22px; flex-wrap: wrap;
+  }
+  .download-icoon {
+    font-size: 40px; flex-shrink: 0;
+  }
+  .download-info { flex: 1; }
+  .download-info h3 { font-size: 15px; font-weight: 700; color: var(--blauw); margin-bottom: 4px; }
+  .download-info p  { font-size: 13px; color: #4a5568; }
+  .btn-download {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blauw); color: white;
+    padding: 11px 22px; border-radius: 6px;
+    font-family: var(--font); font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: background .15s;
+    white-space: nowrap;
+  }
+  .btn-download:hover { background: #274f80; }
+
+  /* MELDINGEN SECTIE */
   .controls {
     display: flex; gap: 12px; align-items: center;
     margin-bottom: 16px; flex-wrap: wrap;
@@ -90,34 +134,27 @@
   }
   .btn:active { transform: scale(.97); }
   .btn-genereer {
-    background: var(--blauw); color: white;
-    font-size: 15px; padding: 12px 28px;
+    background: var(--blauw); color: white; font-size: 15px; padding: 12px 28px;
   }
   .btn-genereer:hover { background: #274f80; }
   .btn-pdf { background: #c0392b; color: white; display: none; }
   .btn-pdf:hover { background: #a93226; }
   .teller {
-    font-size: 13px; color: #4a5568;
-    background: var(--grijs); padding: 6px 14px;
-    border-radius: 20px; display: none;
+    font-size: 13px; color: #4a5568; background: var(--grijs);
+    padding: 6px 14px; border-radius: 20px; display: none;
   }
   .dubbel-warn {
-    background: #fff3cd; border: 1px solid #ffc107;
-    border-radius: 6px; padding: 10px 16px;
-    font-size: 13px; color: #856404;
-    margin-bottom: 14px; display: none;
+    background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px;
+    padding: 10px 16px; font-size: 13px; color: #856404; margin-bottom: 14px; display: none;
   }
 
-  /* MELDINGEN GRID */
-  .grid { display: grid; gap: 10px; }
-
   /* MELDING KAART */
+  .grid { display: grid; gap: 10px; }
   .kaart {
     background: white; border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
     border-left: 5px solid var(--groen); overflow: hidden;
   }
-
   .email-kop {
     background: var(--grijs); border-bottom: 1px solid var(--rand);
     padding: 12px 18px;
@@ -128,11 +165,9 @@
   .email-kop .onderwerp { font-weight: 700; color: var(--blauw); }
   .cat-badge {
     display: inline-block; background: var(--groen-bg); color: var(--groen-fg);
-    font-size: 10.5px; font-weight: 700; padding: 2px 10px;
-    border-radius: 12px; margin-left: 8px; vertical-align: middle;
-    text-transform: uppercase; letter-spacing: .4px;
+    font-size: 10.5px; font-weight: 700; padding: 2px 10px; border-radius: 12px;
+    margin-left: 8px; vertical-align: middle; text-transform: uppercase; letter-spacing: .4px;
   }
-
   .contact-blok {
     background: #f0f4f8; border-bottom: 1px solid var(--rand);
     padding: 10px 18px;
@@ -143,7 +178,6 @@
   .contact-icon { font-size: 14px; opacity: .7; }
   .contact-lbl  { color: #4a5568; font-weight: 600; min-width: 60px; }
   .contact-val  { color: #1a202c; }
-
   .email-body { padding: 14px 18px 18px; }
   .aanhef { color: #4a5568; font-size: 13.5px; margin-bottom: 10px; }
   .tekst  { font-size: 14px; line-height: 1.7; white-space: pre-wrap; margin-bottom: 12px; }
@@ -152,11 +186,11 @@
   .leeg { text-align: center; padding: 50px 20px; color: #718096; }
   .leeg .icoon { font-size: 48px; margin-bottom: 14px; }
   .leeg h3 { font-size: 17px; margin-bottom: 6px; color: var(--blauw); }
+  .leeg p  { font-size: 14px; }
 
   /* PRINT */
   @media print {
-    .header .badge, .controls, .instructie,
-    .dubbel-warn { display: none !important; }
+    .header .badge, .blok, .controls, .dubbel-warn { display: none !important; }
     body { background: white; }
     .container { padding: 0; max-width: 100%; }
     .kaart {
@@ -170,7 +204,7 @@
     .controls { flex-direction: column; align-items: stretch; }
     .btn { justify-content: center; }
     .contact-blok { grid-template-columns: 1fr; }
-    .stappen li { flex-direction: column; gap: 8px; }
+    .download-sectie { flex-direction: column; }
   }
 </style>
 </head>
@@ -186,8 +220,8 @@
 
 <div class="container">
 
-  <!-- INSTRUCTIEBLOK -->
-  <div class="instructie">
+  <!-- BLOK 1: OPDRACHTOMSCHRIJVING -->
+  <div class="blok blok-groen">
     <h2>📌 Opdrachtomschrijving</h2>
     <p>
       Je werkt als medewerker bij de servicedesk. Via e-mail, telefoon of aan de balie
@@ -195,76 +229,138 @@
       <strong>registreren</strong> en de juiste <strong>vervolgvragen</strong> te stellen
       — of het probleem meteen op te lossen als dat mogelijk is.
     </p>
-
     <ol class="stappen">
       <li>
         <span class="stap-nr">1</span>
         <span class="stap-tekst">
-          Klik op <strong>"Genereer 10 meldingen"</strong>. Je krijgt 10 verschillende
-          meldingen te zien uit diverse categorieën, zoals een gebruikersvraag,
-          een storing, een klacht of een wijzigingsverzoek.
+          Download het <strong>registratieformulier</strong> via de knop hieronder
+          en open het in Word.
         </span>
       </li>
       <li>
         <span class="stap-nr">2</span>
         <span class="stap-tekst">
-          Lees elke melding goed door. Let op:
-          <strong>wie</strong> de melder is, <strong>waar</strong> hij/zij werkt
-          en <strong>wat</strong> het probleem is.
+          Klik op <strong>"Genereer 10 meldingen"</strong> om 10 willekeurige meldingen
+          te laden uit verschillende categorieën.
         </span>
       </li>
       <li>
         <span class="stap-nr">3</span>
         <span class="stap-tekst">
-          Druk de meldingen af via <strong>"Afdrukken / PDF"</strong> of sla ze op
-          als PDF-bestand. Dit zijn jouw taakopdrachten.
+          Lees elke melding goed door. Let op wie de melder is,
+          waar hij of zij werkt en wat het probleem is.
         </span>
       </li>
       <li>
         <span class="stap-nr">4</span>
         <span class="stap-tekst">
-          Open het <strong>registratieformulier Level 1</strong> en vul voor elke
-          melding de volgende gegevens in:
-          <br>• <strong>Naam melder</strong> — staat in de melding
-          <br>• <strong>Gebouw / kamernummer</strong> — staat in de melding
-          <br>• <strong>E-mailadres</strong> — staat in de melding
-          <br>• <strong>Telefoonnummer</strong> — staat in de melding
-          <br>• <strong>Omschrijving van de storing</strong> — wat is het probleem?
-          <br>• <strong>Oplossing</strong> — kon je het meteen oplossen? Zo ja, hoe?
-          <br>• <strong>Vervolgvragen</strong> — welke vragen stel je als je meer informatie nodig hebt?
+          Vul voor elke melding het registratieformulier in
+          (zie het overzicht van in te vullen gegevens hieronder).
         </span>
       </li>
       <li>
         <span class="stap-nr">5</span>
         <span class="stap-tekst">
-          Lever het ingevulde registratieformulier in via Canvas.
+          Sla het ingevulde formulier op en lever het in via
+          <strong>Canvas → Opdrachten</strong>.
         </span>
       </li>
     </ol>
-
-    <div class="tip-blok">
+    <div class="tip">
       💡 <strong>Let op:</strong> bij sommige meldingen kun je het probleem direct oplossen
-      (vul dan sectie A in). Bij andere meldingen heb je meer informatie nodig
-      — stel dan gerichte vervolgvragen (vul dan sectie B in).
+      — vul dan <strong>sectie A (Directe oplossing)</strong> in.
+      Bij andere meldingen heb je meer informatie nodig
+      — stel dan gerichte vragen en vul <strong>sectie B (Vervolgvragen)</strong> in.
       Het is ook mogelijk dat beide van toepassing zijn.
     </div>
   </div>
 
-  <!-- KNOPPEN -->
-  <div class="controls">
-    <button class="btn btn-genereer" onclick="genereer()">🔀 Genereer 10 meldingen</button>
-    <button class="btn btn-pdf" id="btnPdf" onclick="window.print()">🖨️ Afdrukken / PDF</button>
-    <span class="teller" id="teller"></span>
+  <!-- BLOK 2: REGISTRATIEFORMULIER -->
+  <div class="blok blok-blauw">
+    <h2>📝 Registratieformulier Level 1</h2>
+
+    <p class="formulier-uitleg">
+      Voor elke melding vul je de onderstaande gegevens in het formulier in.
+      De contactgegevens van de melder staan in de melding zelf — je hoeft ze alleen over te nemen.
+    </p>
+
+    <div class="formulier-velden">
+      <h3>In te vullen per melding:</h3>
+      <ul class="veld-lijst">
+        <li>
+          <span class="veld-icon">👤</span>
+          <span class="veld-naam">Naam melder</span>
+          <span class="veld-info">Staat in de melding — neem over</span>
+        </li>
+        <li>
+          <span class="veld-icon">🏢</span>
+          <span class="veld-naam">Gebouw / kamernummer</span>
+          <span class="veld-info">Staat in de melding — neem over</span>
+        </li>
+        <li>
+          <span class="veld-icon">📧</span>
+          <span class="veld-naam">E-mailadres</span>
+          <span class="veld-info">Staat in de melding — neem over</span>
+        </li>
+        <li>
+          <span class="veld-icon">📞</span>
+          <span class="veld-naam">Telefoonnummer</span>
+          <span class="veld-info">Staat in de melding — neem over</span>
+        </li>
+        <li>
+          <span class="veld-icon">🔧</span>
+          <span class="veld-naam">Omschrijving storing</span>
+          <span class="veld-info">Beschrijf het probleem zoals de melder het omschrijft</span>
+        </li>
+        <li>
+          <span class="veld-icon">✅</span>
+          <span class="veld-naam">A — Directe oplossing</span>
+          <span class="veld-info">Kon je het meteen oplossen? Beschrijf stap voor stap wat je hebt gedaan</span>
+        </li>
+        <li>
+          <span class="veld-icon">❓</span>
+          <span class="veld-naam">B — Vervolgvragen</span>
+          <span class="veld-info">Welke vragen stel je? Bijv: kreeg u een foutmelding? Hebben meer mensen hier last van?</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="download-sectie">
+      <div class="download-icoon">📄</div>
+      <div class="download-info">
+        <h3>Registratieformulier Level 1 — Basis</h3>
+        <p>Word-bestand · 10 invulblokken · digitaal in te vullen en in te leveren</p>
+      </div>
+      <a class="btn-download" href="https://mvo1978.github.io/Summa-opdrachten/Registratieformulier_Level1.docx" download>
+        ⬇️ Download formulier
+      </a>
+    </div>
   </div>
 
-  <div class="dubbel-warn" id="dubbelWarn">
-    ⚠️ Er zijn dubbele meldingen. Klik opnieuw op "Genereer 10 meldingen".
+  <!-- BLOK 3: MELDINGEN GENEREREN -->
+  <div class="blok blok-oranje">
+    <h2>📬 Jouw 10 meldingen</h2>
+    <p>Klik op de knop om 10 willekeurige meldingen te genereren.
+       Elke klik geeft een nieuwe combinatie uit alle categorieën.
+       Druk ze af of sla ze op als PDF zodra je tevreden bent.</p>
+
+    <div class="controls" style="margin-top:16px">
+      <button class="btn btn-genereer" onclick="genereer()">🔀 Genereer 10 meldingen</button>
+      <button class="btn btn-pdf" id="btnPdf" onclick="afdrukken()">🖨️ Afdrukken / PDF</button>
+      <span class="teller" id="teller"></span>
+    </div>
+
+    <div class="dubbel-warn" id="dubbelWarn">
+      ⚠️ Er zijn dubbele meldingen. Klik opnieuw op "Genereer 10 meldingen".
+    </div>
   </div>
 
+  <!-- MELDINGEN GRID -->
   <div class="grid" id="grid">
     <div class="leeg">
       <div class="icoon">📬</div>
-      <h3>Klik op "Genereer 10 meldingen" om te beginnen</h3>
+      <h3>Nog geen meldingen geladen</h3>
+      <p>Klik hierboven op "Genereer 10 meldingen" om te beginnen.</p>
     </div>
   </div>
 
@@ -304,28 +400,25 @@ function vandaag() {
     { day:'2-digit', month:'2-digit', year:'numeric' });
 }
 function esc(s) {
-  return String(s||'')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 function parseContact(omschr) {
   const regels = omschr.split('\n');
   const contact = {};
   const rest = [];
   let inContact = true;
   for (const regel of regels) {
-    if (inContact && regel.startsWith('Gebouw / kamer:')) {
+    if (inContact && regel.startsWith('Gebouw / kamer:'))
       contact.gebouw = regel.replace('Gebouw / kamer:', '').trim();
-    } else if (inContact && regel.startsWith('E-mail:')) {
+    else if (inContact && regel.startsWith('E-mail:'))
       contact.email = regel.replace('E-mail:', '').trim();
-    } else if (inContact && regel.startsWith('Telefoon:')) {
+    else if (inContact && regel.startsWith('Telefoon:'))
       contact.telefoon = regel.replace('Telefoon:', '').trim();
-    } else if (inContact && regel.trim() === '') {
+    else if (inContact && regel.trim() === '')
       inContact = false;
-    } else {
+    else
       rest.push(regel);
-    }
   }
   return { contact, tekst: rest.join('\n').trim() };
 }
@@ -336,7 +429,6 @@ function genereer() {
   for (const { cat } of SELECTIE) {
     if (!pools[cat]) pools[cat] = DATA.filter(m => m.categorie === cat);
   }
-
   const geselecteerd = [];
   const gebruikteNrs = new Set();
   for (const { cat, label } of SELECTIE) {
@@ -363,12 +455,9 @@ function genereer() {
       return `
       <div class="kaart">
         <div class="email-kop">
-          <span class="lbl">Van:</span>
-          <span>${esc(m.naam)}</span>
-          <span class="lbl">Verzonden:</span>
-          <span>${datum}</span>
-          <span class="lbl">Aan:</span>
-          <span>Servicedesk</span>
+          <span class="lbl">Van:</span><span>${esc(m.naam)}</span>
+          <span class="lbl">Verzonden:</span><span>${datum}</span>
+          <span class="lbl">Aan:</span><span>Servicedesk</span>
           <span class="lbl">Onderwerp:</span>
           <span class="onderwerp">${esc(m.onderwerp)}<span class="cat-badge">${esc(label)}</span></span>
         </div>
@@ -401,6 +490,13 @@ function genereer() {
   const t = document.getElementById('teller');
   t.style.display = 'inline-block';
   t.textContent = `Ronde ${ronde} — ${datum}`;
+
+  // Scroll naar meldingen
+  document.getElementById('grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function afdrukken() {
+  window.print();
 }
 </script>
 </body>
