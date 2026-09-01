@@ -18,6 +18,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--font); background: #f5f7fa; color: #1a202c; min-height: 100vh; }
 
+  /* HEADER */
   .header {
     background: var(--blauw); color: white;
     padding: 18px 32px; display: flex; align-items: center; gap: 16px;
@@ -33,9 +34,53 @@
 
   .container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
 
+  /* INSTRUCTIEBLOK */
+  .instructie {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    border-left: 6px solid var(--groen);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .instructie h2 {
+    font-size: 17px; font-weight: 700;
+    color: var(--blauw); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .instructie p {
+    font-size: 14px; line-height: 1.7; color: #2d3748; margin-bottom: 14px;
+  }
+  .instructie p:last-child { margin-bottom: 0; }
+  .stappen {
+    list-style: none; padding: 0;
+    display: grid; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .stappen li {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--groen-bg); border-radius: 8px;
+    padding: 12px 16px; font-size: 14px; line-height: 1.6;
+  }
+  .stap-nr {
+    background: var(--groen); color: white;
+    font-weight: 700; font-size: 13px;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .stap-tekst strong { color: var(--blauw); }
+  .tip-blok {
+    background: #fff9e6; border: 1px solid #ffc107;
+    border-radius: 8px; padding: 12px 16px;
+    font-size: 13.5px; color: #7d6608; line-height: 1.6;
+  }
+  .tip-blok strong { color: #5a4606; }
+
+  /* KNOPPEN */
   .controls {
     display: flex; gap: 12px; align-items: center;
-    margin-bottom: 20px; flex-wrap: wrap;
+    margin-bottom: 16px; flex-wrap: wrap;
   }
   .btn {
     padding: 10px 22px; border: none; border-radius: 6px;
@@ -44,13 +89,17 @@
     transition: background .15s, transform .1s;
   }
   .btn:active { transform: scale(.97); }
-  .btn-genereer { background: var(--blauw); color: white; font-size: 15px; padding: 12px 28px; }
+  .btn-genereer {
+    background: var(--blauw); color: white;
+    font-size: 15px; padding: 12px 28px;
+  }
   .btn-genereer:hover { background: #274f80; }
   .btn-pdf { background: #c0392b; color: white; display: none; }
   .btn-pdf:hover { background: #a93226; }
   .teller {
-    font-size: 13px; color: #4a5568; background: var(--grijs);
-    padding: 6px 14px; border-radius: 20px; display: none;
+    font-size: 13px; color: #4a5568;
+    background: var(--grijs); padding: 6px 14px;
+    border-radius: 20px; display: none;
   }
   .dubbel-warn {
     background: #fff3cd; border: 1px solid #ffc107;
@@ -59,6 +108,7 @@
     margin-bottom: 14px; display: none;
   }
 
+  /* MELDINGEN GRID */
   .grid { display: grid; gap: 10px; }
 
   /* MELDING KAART */
@@ -68,7 +118,6 @@
     border-left: 5px solid var(--groen); overflow: hidden;
   }
 
-  /* E-MAIL KOP */
   .email-kop {
     background: var(--grijs); border-bottom: 1px solid var(--rand);
     padding: 12px 18px;
@@ -84,7 +133,6 @@
     text-transform: uppercase; letter-spacing: .4px;
   }
 
-  /* CONTACT BLOK */
   .contact-blok {
     background: #f0f4f8; border-bottom: 1px solid var(--rand);
     padding: 10px 18px;
@@ -96,35 +144,33 @@
   .contact-lbl  { color: #4a5568; font-weight: 600; min-width: 60px; }
   .contact-val  { color: #1a202c; }
 
-  /* E-MAIL BODY */
   .email-body { padding: 14px 18px 18px; }
   .aanhef { color: #4a5568; font-size: 13.5px; margin-bottom: 10px; }
   .tekst  { font-size: 14px; line-height: 1.7; white-space: pre-wrap; margin-bottom: 12px; }
   .groet  { color: #4a5568; font-size: 13.5px; }
 
-  /* LEEG */
-  .leeg { text-align: center; padding: 70px 20px; color: #718096; }
-  .leeg .icoon { font-size: 52px; margin-bottom: 16px; }
-  .leeg h2 { font-size: 20px; margin-bottom: 8px; font-weight: 600; color: var(--blauw); }
-  .leeg p  { font-size: 14px; line-height: 1.6; }
+  .leeg { text-align: center; padding: 50px 20px; color: #718096; }
+  .leeg .icoon { font-size: 48px; margin-bottom: 14px; }
+  .leeg h3 { font-size: 17px; margin-bottom: 6px; color: var(--blauw); }
 
   /* PRINT */
   @media print {
-    .header .badge, .controls, .dubbel-warn { display: none !important; }
+    .header .badge, .controls, .instructie,
+    .dubbel-warn { display: none !important; }
     body { background: white; }
     .container { padding: 0; max-width: 100%; }
     .kaart {
       box-shadow: none; border: 1px solid #ccc;
       border-left: 5px solid var(--groen);
-      margin-bottom: 16px; page-break-inside: avoid;
+      margin-bottom: 14px; page-break-inside: avoid;
     }
-    .grid { gap: 16px; }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 650px) {
     .controls { flex-direction: column; align-items: stretch; }
     .btn { justify-content: center; }
     .contact-blok { grid-template-columns: 1fr; }
+    .stappen li { flex-direction: column; gap: 8px; }
   }
 </style>
 </head>
@@ -134,44 +180,110 @@
   <div style="font-size:28px">📋</div>
   <div style="flex:1">
     <h1>Servicedesk Meldingen <span class="badge">⭐ Level 1 — Basis</span></h1>
-    <p>Summa College · ICT Servicedesk Skills · Klik op de knop voor 10 willekeurige meldingen</p>
+    <p>Summa College · ICT Servicedesk Skills</p>
   </div>
 </header>
 
 <div class="container">
+
+  <!-- INSTRUCTIEBLOK -->
+  <div class="instructie">
+    <h2>📌 Opdrachtomschrijving</h2>
+    <p>
+      Je werkt als medewerker bij de servicedesk. Via e-mail, telefoon of aan de balie
+      ontvang je meldingen van collega's. Jouw taak is om deze meldingen correct te
+      <strong>registreren</strong> en de juiste <strong>vervolgvragen</strong> te stellen
+      — of het probleem meteen op te lossen als dat mogelijk is.
+    </p>
+
+    <ol class="stappen">
+      <li>
+        <span class="stap-nr">1</span>
+        <span class="stap-tekst">
+          Klik op <strong>"Genereer 10 meldingen"</strong>. Je krijgt 10 verschillende
+          meldingen te zien uit diverse categorieën, zoals een gebruikersvraag,
+          een storing, een klacht of een wijzigingsverzoek.
+        </span>
+      </li>
+      <li>
+        <span class="stap-nr">2</span>
+        <span class="stap-tekst">
+          Lees elke melding goed door. Let op:
+          <strong>wie</strong> de melder is, <strong>waar</strong> hij/zij werkt
+          en <strong>wat</strong> het probleem is.
+        </span>
+      </li>
+      <li>
+        <span class="stap-nr">3</span>
+        <span class="stap-tekst">
+          Druk de meldingen af via <strong>"Afdrukken / PDF"</strong> of sla ze op
+          als PDF-bestand. Dit zijn jouw taakopdrachten.
+        </span>
+      </li>
+      <li>
+        <span class="stap-nr">4</span>
+        <span class="stap-tekst">
+          Open het <strong>registratieformulier Level 1</strong> en vul voor elke
+          melding de volgende gegevens in:
+          <br>• <strong>Naam melder</strong> — staat in de melding
+          <br>• <strong>Gebouw / kamernummer</strong> — staat in de melding
+          <br>• <strong>E-mailadres</strong> — staat in de melding
+          <br>• <strong>Telefoonnummer</strong> — staat in de melding
+          <br>• <strong>Omschrijving van de storing</strong> — wat is het probleem?
+          <br>• <strong>Oplossing</strong> — kon je het meteen oplossen? Zo ja, hoe?
+          <br>• <strong>Vervolgvragen</strong> — welke vragen stel je als je meer informatie nodig hebt?
+        </span>
+      </li>
+      <li>
+        <span class="stap-nr">5</span>
+        <span class="stap-tekst">
+          Lever het ingevulde registratieformulier in via Canvas.
+        </span>
+      </li>
+    </ol>
+
+    <div class="tip-blok">
+      💡 <strong>Let op:</strong> bij sommige meldingen kun je het probleem direct oplossen
+      (vul dan sectie A in). Bij andere meldingen heb je meer informatie nodig
+      — stel dan gerichte vervolgvragen (vul dan sectie B in).
+      Het is ook mogelijk dat beide van toepassing zijn.
+    </div>
+  </div>
+
+  <!-- KNOPPEN -->
   <div class="controls">
     <button class="btn btn-genereer" onclick="genereer()">🔀 Genereer 10 meldingen</button>
     <button class="btn btn-pdf" id="btnPdf" onclick="window.print()">🖨️ Afdrukken / PDF</button>
     <span class="teller" id="teller"></span>
   </div>
-  <div class="dubbel-warn" id="dubbelWarn">⚠️ Er zijn dubbele meldingen. Klik opnieuw op "Genereer 10 meldingen".</div>
+
+  <div class="dubbel-warn" id="dubbelWarn">
+    ⚠️ Er zijn dubbele meldingen. Klik opnieuw op "Genereer 10 meldingen".
+  </div>
+
   <div class="grid" id="grid">
     <div class="leeg">
       <div class="icoon">📬</div>
-      <h2>Klik op "Genereer 10 meldingen"</h2>
-      <p>Je krijgt 10 willekeurige Level 1 meldingen te zien,<br>
-         uit alle categorieën: Gebruikersvraag, Zelf oplossen,<br>
-         Klacht, Security, Wijziging, TOPdesk-onderhoud, Escaleren en Afwijzen.<br><br>
-         Vul daarna het registratieformulier in.</p>
+      <h3>Klik op "Genereer 10 meldingen" om te beginnen</h3>
     </div>
   </div>
+
 </div>
 
 <script>
 const DATA = [{"nr": "Z2", "naam": "Jeroen Versloot", "onderwerp": "404 Error", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.04\nE-mail: j.versloot@topdesk.nl\nTelefoon: 06-20345678\n\nBij het openen van de pagina over het personeelsfeest van vorige week  www.personeelsfeest.local van onze website krijg ik een 404 melding - Page not found."}, {"nr": "Z7", "naam": "Erik van Ginneken", "onderwerp": "Standaard-achtergrond", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.12\nE-mail: e.vanginneken@topdesk.nl\nTelefoon: 06-10234567\n\nDe standaardachtergrond op alle werkstations moet ingesteld worden op een afbeelding van een zeilboot."}, {"nr": "Z8", "naam": "Jeroen Versloot", "onderwerp": "404 Error", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.04\nE-mail: j.versloot@topdesk.nl\nTelefoon: 06-20345678\n\nBij het openen van de personeelspagina www.personeelspagina.local van onze website krijg ik een 404 melding - Page not found."}, {"nr": "Z9", "naam": "Xavier Roth", "onderwerp": "Standaardprinter springt terug", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.08\nE-mail: x.roth@topdesk.nl\nTelefoon: 06-30456789\n\nMijn standaardprinter springt na iedere herstart terug naar de printer op de begane grond. Daardoor print ik steeds op de verkeerde locatie."}, {"nr": "Z10", "naam": "Camilo van Trijp", "onderwerp": "Map verdwijnt uit Verkenner", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.15\nE-mail: c.vantrijp@topdesk.nl\nTelefoon: 06-40567890\n\nDe snelkoppeling naar de afdelingsmap in Verkenner is verdwenen. Ik kan de map daardoor niet meer snel openen."}, {"nr": "Z11", "naam": "Hanneke Heijdemans", "onderwerp": "Pdf opent in browser", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.11\nE-mail: h.heijdemans@topdesk.nl\nTelefoon: 06-50678901\n\nPdf-bestanden openen sinds vanochtend automatisch in Edge in plaats van in Acrobat Reader. Dat werkt voor mij niet prettig."}, {"nr": "Z12", "naam": "Doeke van Bergen", "onderwerp": "Verkeerde toetsenbordtaal", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.02\nE-mail: d.vanbergen@topdesk.nl\nTelefoon: 06-60789012\n\nMijn toetsenbord typt andere tekens dan ik indruk. Het lijkt alsof de taalinstelling is veranderd."}, {"nr": "Z13", "naam": "Anne Thiadens", "onderwerp": "Num Lock blijft uit", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.14\nE-mail: a.thiadens@topdesk.nl\nTelefoon: 06-70890123\n\nOp mijn werkplek staat Num Lock iedere keer uit na het aanmelden. Voor het invoeren van cijfers is dat erg onhandig."}, {"nr": "Z14", "naam": "Erik van de Wiel", "onderwerp": "Outlook handtekeningen weg", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.07\nE-mail: e.vandewiel@topdesk.nl\nTelefoon: 06-80901234\n\nMijn standaardhandtekening in Outlook is verdwenen. Ik moet hem nu steeds handmatig invoeren."}, {"nr": "Z15", "naam": "Rik Prince", "onderwerp": "Teams status blijft bezet", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.03\nE-mail: r.prince@topdesk.nl\nTelefoon: 06-90012345\n\nMijn status in Teams blijft op bezet staan terwijl ik nergens in zit. Collega’s denken nu dat ik niet beschikbaar ben."}, {"nr": "Z17", "naam": "Po Chan", "onderwerp": "Bestandsvoorbeeld ontbreekt", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.09\nE-mail: p.chan@topdesk.nl\nTelefoon: 06-11223344\n\nIn Verkenner zie ik geen voorbeeld meer van afbeeldingen en pdf-bestanden. Voorheen werkte dat wel."}, {"nr": "Z18", "naam": "Hannes Ching", "onderwerp": "Verkeerde tijd op pc", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.10\nE-mail: h.ching@topdesk.nl\nTelefoon: 06-43445566\n\nDe klok op mijn pc loopt bijna tien minuten achter. Daardoor krijg ik problemen met afspraken en meldingen."}, {"nr": "Z20", "naam": "Ibrahim Elkemed", "onderwerp": "Zip-bestanden openen niet", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 1.06\nE-mail: i.elkemed@topdesk.nl\nTelefoon: 06-22334455\n\nZip-bestanden worden niet meer met 7-Zip geopend maar met een ander programma dat niet werkt."}, {"nr": "Z22", "naam": "Jaap de Vries", "onderwerp": "Muis dubbelklikt vanzelf", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.07\nE-mail: j.devries@topdesk.nl\nTelefoon: 06-99001122\n\nMijn muis opent bestanden direct alsof ik dubbelklik, terwijl ik maar één keer klik."}, {"nr": "Z26", "naam": "Berry Dieleman", "onderwerp": "Schermresolutie veranderd", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.12\nE-mail: b.dieleman@topdesk.nl\nTelefoon: 06-10001112\n\nNa het aanmelden is alles op mijn scherm veel groter dan normaal. Het lijkt alsof de resolutie is aangepast."}, {"nr": "Z27", "naam": "Dorien t Hart", "onderwerp": "Meldingsgeluid ontbreekt", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.14\nE-mail: d.thart@topdesk.nl\nTelefoon: 06-32334455\n\nIk krijg wel e-mails binnen maar hoor geen meldingsgeluid meer in Outlook of Windows."}, {"nr": "Z30", "naam": "Martin Beijering", "onderwerp": "Teams-camera gespiegeld", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.03\nE-mail: m.beijering@topdesk.nl\nTelefoon: 06-43334445\n\nMijn camerabeeld in Teams staat gespiegeld waardoor tekst op papier onleesbaar is voor anderen."}, {"nr": "Z33", "naam": "Michael Kraft", "onderwerp": "Cursor verdwijnt in Word", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.09\nE-mail: m.kraft@topdesk.nl\nTelefoon: 06-76667778\n\nTijdens het typen in Word lijkt de cursor ineens weg te zijn. Daardoor weet ik niet waar ik verder typ."}, {"nr": "Z34", "naam": "Wilco Kamp", "onderwerp": "Bureaubladpictogrammen verdwenen", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.04\nE-mail: w.kamp@topdesk.nl\nTelefoon: 06-87778889\n\nNa het aanmelden zijn de pictogrammen op mijn bureaublad weg. De bestanden lijken niet verwijderd."}, {"nr": "Z37", "naam": "Frederike van der Walting", "onderwerp": "Scherm draait automatisch", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.13\nE-mail: f.walting@topdesk.nl\nTelefoon: 06-10990001\n\nMijn scherm draait automatisch naar portretstand als ik de laptop iets verplaats. Dat is tijdens het werk erg onhandig."}, {"nr": "G2", "naam": "Simone Verlage", "onderwerp": "Voettekst", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.01\nE-mail: simone.verlage@topdesk.nl\nTelefoon: 06-00000000\n\nIk ben een rapportage aan het maken in Word, in de voettekst moet datum en versie vermeld worden. Kun je me dit uitleggen?"}, {"nr": "G4", "naam": "Henk van Domst", "onderwerp": "Logo", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.05\nE-mail: h.vandomst@topdesk.nl\nTelefoon: 06-55667788\n\nHoe kan ik ervoor zorgen dat op een nieuwe PowerPoint-dia meteen ons logo rechtsboven staat?"}, {"nr": "G5", "naam": "Karel Verstappen", "onderwerp": "Kolommen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 3.13\nE-mail: k.verstappen@topdesk.nl\nTelefoon: 06-66778899\n\nIk wil een deel van mijn document opmaken in drie kolommen voor een verslag dat volgende week klaar moet zijn.  Kun je het me uitleggen hoe ik dat moet doen?"}, {"nr": "G6", "naam": "Xavier Roth", "onderwerp": "Handtekening in Outlook instellen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.08\nE-mail: x.roth@topdesk.nl\nTelefoon: 06-30456789\n\nIk wil graag een standaardhandtekening instellen in Outlook met mijn naam, functie en telefoonnummer. Ik kan niet vinden waar ik dit moet aanpassen."}, {"nr": "G7", "naam": "Camilo van Trijp", "onderwerp": "Pdf maken van Word-document", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.15\nE-mail: c.vantrijp@topdesk.nl\nTelefoon: 06-40567890\n\nIk moet een Word-document als pdf versturen, maar ik weet niet hoe ik dit het beste kan opslaan zonder de opmaak kwijt te raken."}, {"nr": "G8", "naam": "Hanneke Heijdemans", "onderwerp": "Scherm delen in Teams", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.11\nE-mail: h.heijdemans@topdesk.nl\nTelefoon: 06-50678901\n\nTijdens een Teams-vergadering wil ik mijn scherm delen, maar ik zie niet waar ik dat kan starten."}, {"nr": "G9", "naam": "Doeke van Bergen", "onderwerp": "Wachtwoord wijzigen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.02\nE-mail: d.vanbergen@topdesk.nl\nTelefoon: 06-60789012\n\nIk wil mijn wachtwoord wijzigen voordat het verloopt, maar ik weet niet waar ik dat binnen Windows of Outlook moet doen."}, {"nr": "G11", "naam": "Erik van de Wiel", "onderwerp": "Automatisch antwoord instellen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.07\nE-mail: e.vandewiel@topdesk.nl\nTelefoon: 06-80901234\n\nIk ben binnenkort afwezig en wil een automatisch antwoord instellen in Outlook. Ik weet niet waar ik dat kan vinden."}, {"nr": "G12", "naam": "Rik Prince", "onderwerp": "Eerste rij vastzetten in Excel", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.03\nE-mail: r.prince@topdesk.nl\nTelefoon: 06-90012345\n\nIk werk met een groot Excelbestand en wil de bovenste rij zichtbaar houden tijdens het scrollen. Ik weet niet hoe ik dat moet instellen."}, {"nr": "G13", "naam": "Claus Bimmel", "onderwerp": "Meerdere bijlagen toevoegen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.02\nE-mail: c.bimmel@topdesk.nl\nTelefoon: 06-77889900\n\nIk wil meerdere bestanden tegelijk als bijlage toevoegen aan een e-mail in Outlook, maar ik voeg nu steeds maar één bestand toe."}, {"nr": "G14", "naam": "Po Chan", "onderwerp": "Screenshot maken in Windows", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.09\nE-mail: p.chan@topdesk.nl\nTelefoon: 06-11223344\n\nIk wil een screenshot maken van mijn scherm om die mee te sturen, maar ik weet niet welke toetscombinatie ik daarvoor moet gebruiken."}, {"nr": "G17", "naam": "Ibrahim Elkemed", "onderwerp": "Ondertiteling in Teams aanzetten", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 1.06\nE-mail: i.elkemed@topdesk.nl\nTelefoon: 06-22334455\n\nTijdens een Teams-overleg wil ik live ondertiteling gebruiken, maar ik weet niet waar ik die optie kan aanzetten."}, {"nr": "G18", "naam": "Marianne Griffioen", "onderwerp": "Tekst vergroten in browser", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.11\nE-mail: m.griffioen@topdesk.nl\nTelefoon: 06-33445566\n\nDe tekst op websites is voor mij te klein. Ik wil graag weten hoe ik de weergave groter kan maken in de browser."}, {"nr": "G19", "naam": "Jaap de Vries", "onderwerp": "Bestand delen via Teams chat", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.07\nE-mail: j.devries@topdesk.nl\nTelefoon: 06-99001122\n\nIk wil een document delen met een collega in Teams-chat, maar ik weet niet hoe ik dat vanuit de chat moet doen."}, {"nr": "G20", "naam": "Erik Wielermans", "onderwerp": "Verschil tussen CC en BCC", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.01\nE-mail: erik.wielermans@topdesk.nl\nTelefoon: 06-00000000\n\nIk zie in Outlook de opties CC en BCC, maar ik weet niet precies wanneer ik welke moet gebruiken."}, {"nr": "G21", "naam": "Nancy van Elsacker", "onderwerp": "Zwart-wit printen instellen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.01\nE-mail: n.vanelsacker@topdesk.nl\nTelefoon: 06-54556677\n\nMijn documenten worden standaard in kleur geprint. Ik wil graag weten hoe ik zwart-wit als standaard kan instellen."}, {"nr": "G23", "naam": "Berry Dieleman", "onderwerp": "Automatisch opslaan in Word", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.12\nE-mail: b.dieleman@topdesk.nl\nTelefoon: 06-10001112\n\nIk zie in Word de optie automatisch opslaan, maar ik weet niet precies wanneer dit werkt en waar het bestand dan opgeslagen wordt."}, {"nr": "G25", "naam": "Hannes van Grinsven", "onderwerp": "Bestand hernoemen in Verkenner", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.05\nE-mail: h.vangrinsven@topdesk.nl\nTelefoon: 06-21112223\n\nIk wil een bestand een andere naam geven in Verkenner, maar ik twijfel of ik daarmee het bestand of de inhoud verander."}, {"nr": "G26", "naam": "Renske van der Heide", "onderwerp": "Handmatig synchroniseren van OneDrive", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.14\nE-mail: r.vanderheide@topdesk.nl\nTelefoon: 06-32223334\n\nIk wil controleren of OneDrive mijn bestanden echt heeft bijgewerkt, maar ik weet niet hoe ik handmatig een synchronisatie kan starten."}, {"nr": "G27", "naam": "Martin Beijering", "onderwerp": "Afdruktaak annuleren", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.03\nE-mail: m.beijering@topdesk.nl\nTelefoon: 06-43334445\n\nIk heb per ongeluk een verkeerd document naar de printer gestuurd en wil de afdruktaak stoppen. Ik weet niet hoe ik dat moet doen."}, {"nr": "G28", "naam": "Naoual Dehak", "onderwerp": "Kolombreedte automatisch aanpassen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.07\nE-mail: n.dehak@topdesk.nl\nTelefoon: 06-54445556\n\nIn Excel vallen sommige gegevens weg omdat de kolommen te smal zijn. Ik wil weten hoe ik de kolombreedte snel goed kan zetten."}, {"nr": "G29", "naam": "Leontine Dekker", "onderwerp": "Afdrukstand wijzigen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.11\nE-mail: l.dekker@topdesk.nl\nTelefoon: 06-65556667\n\nIk wil een document liggend afdrukken in plaats van staand, maar ik weet niet waar ik die instelling moet veranderen."}, {"nr": "G31", "naam": "Wilco Kamp", "onderwerp": "Leesmappen in Outlook aanmaken", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.04\nE-mail: w.kamp@topdesk.nl\nTelefoon: 06-87778889\n\nMijn inbox wordt erg vol en ik wil mappen aanmaken om e-mails te ordenen. Ik weet niet hoe ik dat goed kan doen."}, {"nr": "G32", "naam": "Frank Meert", "onderwerp": "Bestand zoeken in Windows", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.06\nE-mail: f.meert@topdesk.nl\nTelefoon: 06-98889990\n\nIk ben een document kwijt en wil weten hoe ik binnen Windows het snelst naar een bestand kan zoeken."}, {"nr": "G33", "naam": "Victor Kooler", "onderwerp": "Presentatie starten in PowerPoint", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.08\nE-mail: v.kooler@topdesk.nl\nTelefoon: 06-98990011\n\nIk heb een PowerPoint-presentatie gemaakt maar weet niet hoe ik die goed in presentatiemodus moet starten."}, {"nr": "G34", "naam": "Frederike van der Walting", "onderwerp": "Standaardbrowser wijzigen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.13\nE-mail: f.walting@topdesk.nl\nTelefoon: 06-10990001\n\nLinks openen nu in een andere browser dan ik gewend ben. Ik wil weten hoe ik mijn standaardbrowser kan aanpassen."}, {"nr": "G35", "naam": "Dirk-Jan Flips", "onderwerp": "Vergrendelen van werkplek", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.02\nE-mail: d.flips@topdesk.nl\nTelefoon: 06-21001112\n\nIk wil weten hoe ik mijn werkplek snel kan vergrendelen als ik even wegloop, zonder alles af te sluiten."}, {"nr": "S1", "naam": "Anne Thiadens", "onderwerp": "Usb controleren", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.14\nE-mail: a.thiadens@topdesk.nl\nTelefoon: 06-70890123\n\nIk heb een USB-stick gekregen van een klant, hoe kan ik controleren dat er geen malware op staat?"}, {"nr": "S7", "naam": "Chris Limbach", "onderwerp": "Selfservicedesk", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.13\nE-mail: c.limbach@topdesk.nl\nTelefoon: 06-87889900\n\nIk kan niet aanmelden op de Self-Service portal, kun je voor mij een gebruikersnaam en wachtwoord daarvoor aanmaken? Ik heb toestemming van mijn manager."}, {"nr": "S9", "naam": "Schrover", "onderwerp": "Account vergrendeld", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.10\nE-mail: schrover@topdesk.nl\nTelefoon: 06-32112223\n\nNa een paar verkeerde pogingen is mijn account vergrendeld. Ik kan nu niet meer aanmelden op de server."}, {"nr": "S13", "naam": "Anne Thiadens", "onderwerp": "Self Service Portal wachtwoord vergeten", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.14\nE-mail: a.thiadens@topdesk.nl\nTelefoon: 06-70890123\n\nIk ben mijn wachtwoord voor de Self Service Portal kwijt. Daardoor kan ik daar geen meldingen meer indienen."}, {"nr": "S19", "naam": "Lieve Degruyter", "onderwerp": "Wachtwoord mag niet te simpel zijn", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 3.04\nE-mail: l.degruyter@topdesk.nl\nTelefoon: 06-65667788\n\nIk wil mijn wachtwoord aanpassen, maar het nieuwe wachtwoord wordt steeds afgekeurd. Kunnen jullie uitleggen waar het aan moet voldoen?"}, {"nr": "S22", "naam": "Jaap de Vries", "onderwerp": "Gebruikersnaam voor SSP aanmaken", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.07\nE-mail: j.devries@topdesk.nl\nTelefoon: 06-99001122\n\nIk wil graag gebruikmaken van de Self Service Portal, maar ik heb daar nog geen gebruikersnaam en wachtwoord voor."}, {"nr": "S24", "naam": "Nancy van Elsacker", "onderwerp": "Waarschuwing bij downloaden", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.01\nE-mail: n.vanelsacker@topdesk.nl\nTelefoon: 06-54556677\n\nAls ik een bijlage uit Outlook wil openen, krijg ik een beveiligingswaarschuwing in Windows. Ik weet niet of ik verder kan."}, {"nr": "K2", "naam": "Marianne Griffioen", "onderwerp": "Geen reactie", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.11\nE-mail: m.griffioen@topdesk.nl\nTelefoon: 06-33445566\n\nIk heb vijf e-mails verstuurd naar de servicedesk met de vraag wanneer ik de tablet krijg die mijn manager mij heeft beloofd en die jullie op voorraad hebben liggen.  Ik heb geen enkel antwoord ontvangen. Ik ben zeer ontevreden over jullie dienstverlening."}, {"nr": "K3", "naam": "Leo Kalkerman", "onderwerp": "Gemompel", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.08\nE-mail: l.kalkerman@topdesk.nl\nTelefoon: 06-44556677\n\nVorige week is verteld dat er donderdag iemand langs zou komen om mijn kapotte toetsenbord te vervangen, maar er is niemand gekomen. Ik ben zeer ontevreden over de dienstverlening."}, {"nr": "K4", "naam": "Henk van Domst", "onderwerp": "Geen reactie", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.05\nE-mail: h.vandomst@topdesk.nl\nTelefoon: 06-55667788\n\nDrie weken geleden heb ik een vraag gesteld over functies in Excel via het selfserviceportal, maar ik heb geen enkel antwoord van jullie ontvangen. Een collega heeft me uiteindelijk geholpen.  Ik ben zeer ontevreden over jullie dienstverlening."}, {"nr": "K6", "naam": "Xavier Roth", "onderwerp": "Niet teruggebeld na melding", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.08\nE-mail: x.roth@topdesk.nl\nTelefoon: 06-30456789\n\nIk heb gisteren een melding doorgegeven en er is afgesproken dat ik zou worden teruggebeld. Tot nu toe heb ik nog niets gehoord."}, {"nr": "K8", "naam": "Hanneke Heijdemans", "onderwerp": "Onvriendelijk te woord gestaan", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.11\nE-mail: h.heijdemans@topdesk.nl\nTelefoon: 06-50678901\n\nIk ben telefonisch kortaf en onvriendelijk te woord gestaan door de servicedesk. Daardoor voelde ik mij niet serieus genomen."}, {"nr": "K9", "naam": "Doeke van Bergen", "onderwerp": "Geen reactie op e-mail", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.02\nE-mail: d.vanbergen@topdesk.nl\nTelefoon: 06-60789012\n\nIk heb eerder deze week een e-mail gestuurd naar de servicedesk, maar daar nog geen reactie op ontvangen."}, {"nr": "K11", "naam": "Erik van de Wiel", "onderwerp": "Te lang moeten wachten aan de balie", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.07\nE-mail: e.vandewiel@topdesk.nl\nTelefoon: 06-80901234\n\nIk heb lang aan de balie gewacht terwijl er niemand kwam helpen. Dat vond ik erg onprettig."}, {"nr": "K12", "naam": "Rik Prince", "onderwerp": "Geen duidelijke statusupdate ontvangen", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.03\nE-mail: r.prince@topdesk.nl\nTelefoon: 06-90012345\n\nIk heb geen duidelijke terugkoppeling gekregen over de status van mijn melding. Daardoor wist ik niet waar ik aan toe was."}, {"nr": "K14", "naam": "Po Chan", "onderwerp": "Afspraak niet nagekomen", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.09\nE-mail: p.chan@topdesk.nl\nTelefoon: 06-11223344\n\nEr is een afspraak gemaakt over het moment van terugkoppelen, maar die afspraak is niet nagekomen."}, {"nr": "K21", "naam": "Nancy van Elsacker", "onderwerp": "Geen bevestiging van melding", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.01\nE-mail: n.vanelsacker@topdesk.nl\nTelefoon: 06-54556677\n\nNa het doorgeven van mijn probleem heb ik geen bevestiging ontvangen dat mijn melding was geregistreerd."}, {"nr": "K22", "naam": "Jeroen Versloot", "onderwerp": "Niet netjes geholpen aan de balie", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.04\nE-mail: j.versloot@topdesk.nl\nTelefoon: 06-20345678\n\nIk ben aan de balie niet netjes geholpen. De toon van het gesprek vond ik niet passend."}, {"nr": "K26", "naam": "Renske van der Heide", "onderwerp": "Lang in de wacht gestaan", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.14\nE-mail: r.vanderheide@topdesk.nl\nTelefoon: 06-32223334\n\nIk heb lang in de wacht gestaan voordat ik iemand van de servicedesk aan de lijn kreeg."}, {"nr": "W4", "naam": "Anne Thiadens", "onderwerp": "Ergonomische muis", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.14\nE-mail: a.thiadens@topdesk.nl\nTelefoon: 06-70890123\n\nIk wil graag een ergonomische muis, ik heb last van mijn duim."}, {"nr": "W6", "naam": "Xavier Roth", "onderwerp": "Nieuwe muis aanvragen", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.08\nE-mail: x.roth@topdesk.nl\nTelefoon: 06-30456789\n\nMijn huidige muis werkt niet prettig meer en ik wil graag een nieuwe muis aanvragen voor mijn werkplek."}, {"nr": "W7", "naam": "Camilo van Trijp", "onderwerp": "Ergonomisch toetsenbord aanvragen", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.15\nE-mail: c.vantrijp@topdesk.nl\nTelefoon: 06-40567890\n\nIk wil graag een ergonomisch toetsenbord aanvragen omdat ik klachten krijg bij langdurig typen."}, {"nr": "W17", "naam": "Ibrahim Elkemed", "onderwerp": "7-Zip installeren", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 1.06\nE-mail: i.elkemed@topdesk.nl\nTelefoon: 06-22334455\n\nIk wil graag 7-Zip op mijn werkplek laten installeren om zip-bestanden beter te kunnen beheren."}, {"nr": "W18", "naam": "Marianne Griffioen", "onderwerp": "Adobe Reader bijwerken", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.11\nE-mail: m.griffioen@topdesk.nl\nTelefoon: 06-33445566\n\nIk wil graag dat Adobe Reader op mijn werkplek wordt bijgewerkt naar een nieuwere versie."}, {"nr": "W24", "naam": "Dorien t Hart", "onderwerp": "Headset aanvragen", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.14\nE-mail: d.thart@topdesk.nl\nTelefoon: 06-32334455\n\nVoor online overleggen wil ik graag een headset laten toevoegen aan mijn werkplek."}, {"nr": "W28", "naam": "Naoual Dehak", "onderwerp": "Browser als standaard instellen", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.07\nE-mail: n.dehak@topdesk.nl\nTelefoon: 06-54445556\n\nIk wil graag dat Chrome als standaardbrowser wordt ingesteld op mijn werkplek."}, {"nr": "T1", "naam": "John Hendrikx", "onderwerp": "Tablet uit voorraad", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 1.05\nE-mail: j.hendrikx@topdesk.nl\nTelefoon: 06-43223334\n\nEen tablet uit de voorraad is meegegeven worden aan Nancy van Elsacker. Er zit een sticker waarvan alleen de 5 nog te lezen is. Koppel deze tablet aan haar persoonsgegevens."}, {"nr": "T6", "naam": "Frederike Walting", "onderwerp": "Fax", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.13\nE-mail: f.walting@topdesk.nl\nTelefoon: 06-10990001\n\nDe fax die bij ons staat is kapot en werd ook nog maar heel zelden gebruikt. Kun je de status veranderen in Afgeschreven?"}, {"nr": "T8", "naam": "Xavier Roth", "onderwerp": "Categorie hernoemen in TOPdesk", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.08\nE-mail: x.roth@topdesk.nl\nTelefoon: 06-30456789\n\nDe categorie 'Kantoorapplicaties' moet in TOPdesk worden hernoemd zodat deze beter aansluit op onze huidige werkwijze."}, {"nr": "T9", "naam": "Camilo van Trijp", "onderwerp": "Subcategorie toevoegen", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.15\nE-mail: c.vantrijp@topdesk.nl\nTelefoon: 06-40567890\n\nBij de categorie printers ontbreekt een subcategorie voor labelprinters. Ik wil dat deze wordt toegevoegd in TOPdesk."}, {"nr": "T11", "naam": "Doeke van Bergen", "onderwerp": "Gebruiker koppelen aan vestiging", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.02\nE-mail: d.vanbergen@topdesk.nl\nTelefoon: 06-60789012\n\nEen medewerker staat in TOPdesk nog niet gekoppeld aan de juiste vestiging. Dit moet worden aangepast."}, {"nr": "T15", "naam": "Claus Bimmel", "onderwerp": "Persoon verwijderen uit TOPdesk", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.02\nE-mail: c.bimmel@topdesk.nl\nTelefoon: 06-77889900\n\nEen medewerker die uit dienst is staat nog actief in TOPdesk en moet worden verwijderd of gedeactiveerd."}, {"nr": "T16", "naam": "Po Chan", "onderwerp": "Naam van categorie corrigeren", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.09\nE-mail: p.chan@topdesk.nl\nTelefoon: 06-11223344\n\nIn TOPdesk staat een categorie met een spelfout in de naam. Dit moet worden gecorrigeerd."}, {"nr": "T23", "naam": "Nancy van Elsacker", "onderwerp": "Afdeling wijzigen bij persoon", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.01\nE-mail: n.vanelsacker@topdesk.nl\nTelefoon: 06-54556677\n\nBij een medewerker in TOPdesk staat de verkeerde afdeling ingevuld. Dit moet worden aangepast."}, {"nr": "T28", "naam": "Renske van der Heide", "onderwerp": "Objectnaam corrigeren", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.14\nE-mail: r.vanderheide@topdesk.nl\nTelefoon: 06-32223334\n\nEen configuratie-item in TOPdesk heeft een onjuiste naam en moet worden gecorrigeerd."}, {"nr": "T30", "naam": "Naoual Dehak", "onderwerp": "Aanvraagformulier hernoemen", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.07\nE-mail: n.dehak@topdesk.nl\nTelefoon: 06-54445556\n\nDe naam van een aanvraagformulier in TOPdesk moet worden aangepast zodat gebruikers beter zien waarvoor het bedoeld is."}, {"nr": "T33", "naam": "Wilco Kamp", "onderwerp": "Operator verwijderen", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.04\nE-mail: w.kamp@topdesk.nl\nTelefoon: 06-87778889\n\nEen vertrokken medewerker staat nog als operator actief in TOPdesk en moet worden verwijderd."}, {"nr": "T34", "naam": "Frank Meert", "onderwerp": "Tekst van categorie aanpassen", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.06\nE-mail: f.meert@topdesk.nl\nTelefoon: 06-98889990\n\nDe omschrijving van een categorie in TOPdesk moet worden aangepast zodat deze duidelijker is voor de servicedesk."}, {"nr": "T37", "naam": "Dirk-Jan Flips", "onderwerp": "Naam operatorgroep wijzigen", "categorie": "TOPdesk-onderhoud", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.02\nE-mail: d.flips@topdesk.nl\nTelefoon: 06-21001112\n\nDe naam van een operatorgroep in TOPdesk moet worden aangepast omdat deze niet meer overeenkomt met de praktijk."}, {"nr": "E3", "naam": "Frederike van der Walting", "onderwerp": "Frisdrank automaat kapot", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.13\nE-mail: f.walting@topdesk.nl\nTelefoon: 06-10990001\n\nDe frisdrankautomaat van TOPdesk Delft is kapot, graag zo snel mogelijk laten repareren."}, {"nr": "E5", "naam": "Victor Kooler", "onderwerp": "Laptopscherm gebarsten", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.08\nE-mail: v.kooler@topdesk.nl\nTelefoon: 06-98990011\n\nHet scherm van mijn laptop is gebarsten, kunnen jullie dit laten repareren? Er zit een sticker LAP1600 op. Ik kan verder werken op  mijn desktop."}, {"nr": "E8", "naam": "Hajo Kootstra", "onderwerp": "Natte tablet", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.06\nE-mail: h.kootstra@topdesk.nl\nTelefoon: 06-76778899\n\nAfgelopen weekend heb ik een tablet geleend om thuis te kunnen werken, het ding is helaas nat geworden toen het opeens begon te regenen en nu doet hij het niet meer. Het gaat om TABL7."}, {"nr": "E17", "naam": "Rik Prince", "onderwerp": "Monitor blijft zwart", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.03\nE-mail: r.prince@topdesk.nl\nTelefoon: 06-90012345\n\nMijn monitor blijft zwart terwijl de pc wel aanstaat. Kabels lijken goed aangesloten."}, {"nr": "E19", "naam": "Po Chan", "onderwerp": "Beamer lokaal werkt niet", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.09\nE-mail: p.chan@topdesk.nl\nTelefoon: 06-11223344\n\nDe beamer in lokaal B2 geeft geen beeld meer, terwijl de laptop wel aangesloten is."}, {"nr": "E29", "naam": "Dorien t Hart", "onderwerp": "Chrome opent intranet niet goed", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.14\nE-mail: d.thart@topdesk.nl\nTelefoon: 06-32334455\n\nIn Chrome wordt ons intranet niet goed geladen. Pagina's blijven leeg of geven fouten."}, {"nr": "E31", "naam": "Renske van der Heide", "onderwerp": "VLC speelt videobestand niet af", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.14\nE-mail: r.vanderheide@topdesk.nl\nTelefoon: 06-32223334\n\nVLC geeft een foutmelding bij het openen van videobestanden die ik nodig heb voor mijn werk."}, {"nr": "E34", "naam": "Leontine Dekker", "onderwerp": "Koffieautomaat werkt niet", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.11\nE-mail: l.dekker@topdesk.nl\nTelefoon: 06-65556667\n\nDe koffieautomaat op onze verdieping werkt niet meer en geeft een foutmelding op het display."}, {"nr": "A1", "naam": "Frits Hofman", "onderwerp": "Bezoek", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.03\nE-mail: f.hofman@topdesk.nl\nTelefoon: 06-54334445\n\nIk wil Dorien 't Hart verrassen met een bezoekje bij haar thuis. Ik weet dat ze net als ik in Varsseveld woont, maar ik weet de straat en het huisnummer niet.  Kun je me dat even toesturen?"}, {"nr": "A4", "naam": "Claus Bimmel", "onderwerp": "Opera", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.02\nE-mail: c.bimmel@topdesk.nl\nTelefoon: 06-77889900\n\nIk wil de internetbrowser Opera gaan gebruiken. Kun je die voor me installeren?"}, {"nr": "A5", "naam": "Martine de Roos", "onderwerp": "E-mail op tablet", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.10\nE-mail: m.deroos@topdesk.nl\nTelefoon: 06-88990011\n\nIk wil mijn zakelijke e-mail kunnen afhandelen op mijn privé -tablet. Hoe moet ik dat instellen?"}, {"nr": "A6", "naam": "Xavier Roth", "onderwerp": "Privé laptop start niet op", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.08\nE-mail: x.roth@topdesk.nl\nTelefoon: 06-30456789\n\nMijn privé laptop thuis start niet meer op. Ik wil graag dat de servicedesk hiernaar kijkt."}, {"nr": "A7", "naam": "Camilo van Trijp", "onderwerp": "Privé printer print niet", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.15\nE-mail: c.vantrijp@topdesk.nl\nTelefoon: 06-40567890\n\nMijn printer thuis print geen documenten meer. Ik wil graag hulp bij het oplossen van dit probleem."}, {"nr": "A12", "naam": "Rik Prince", "onderwerp": "Privé wifi thuis werkt niet", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.03\nE-mail: r.prince@topdesk.nl\nTelefoon: 06-90012345\n\nMijn wifi thuis valt steeds weg en ik wil graag dat de servicedesk dit oplost."}, {"nr": "A14", "naam": "Po Chan", "onderwerp": "Privé tablet instellen", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.09\nE-mail: p.chan@topdesk.nl\nTelefoon: 06-11223344\n\nIk wil mijn privé tablet laten instellen voor thuisgebruik en synchronisatie met mijn persoonlijke apps."}, {"nr": "A16", "naam": "Lieve Degruyter", "onderwerp": "Privé scanner werkt niet", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 3.04\nE-mail: l.degruyter@topdesk.nl\nTelefoon: 06-65667788\n\nMijn scanner thuis wordt niet meer herkend door mijn computer. Ik wil graag hulp hierbij."}, {"nr": "A17", "naam": "Ibrahim Elkemed", "onderwerp": "Game installeren op werkpc", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 1.06\nE-mail: i.elkemed@topdesk.nl\nTelefoon: 06-22334455\n\nIk wil graag een spel op mijn werkcomputer laten installeren voor in de pauze."}, {"nr": "A19", "naam": "Jaap de Vries", "onderwerp": "Thuisnetwerk uitbreiden", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.07\nE-mail: j.devries@topdesk.nl\nTelefoon: 06-99001122\n\nIk wil advies en ondersteuning bij het uitbreiden van mijn thuisnetwerk met extra wifi-punten."}, {"nr": "A22", "naam": "Jeroen Versloot", "onderwerp": "Privé telefoon repareren", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.04\nE-mail: j.versloot@topdesk.nl\nTelefoon: 06-20345678\n\nMijn privé telefoon heeft een kapot scherm en ik wil dat de servicedesk dit laat repareren."}, {"nr": "A27", "naam": "Martin Beijering", "onderwerp": "Privé webcam instellen", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.03\nE-mail: m.beijering@topdesk.nl\nTelefoon: 06-43334445\n\nIk wil mijn privé webcam thuis laten instellen voor videobellen."}, {"nr": "A32", "naam": "Frank Meert", "onderwerp": "Privé router vervangen", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.06\nE-mail: f.meert@topdesk.nl\nTelefoon: 06-98889990\n\nIk wil advies en hulp bij het vervangen van mijn router thuis."}, {"nr": "A34", "naam": "Frederike van der Walting", "onderwerp": "Privé software update uitvoeren", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.13\nE-mail: f.walting@topdesk.nl\nTelefoon: 06-10990001\n\nIk wil dat op mijn privé computer een aantal programma’s worden bijgewerkt omdat ik daar zelf niet uitkom."}];
 
-// Vaste selectievolgorde: G×2, Z×2, E×1, A×1, Z→Z, S×1, K×1, W×1, T×1, G→G
 const SELECTIE = [
-  { cat:'Gebruikersvraag',   label:'Gebruikersvraag'    },
-  { cat:'Zelf oplossen',     label:'Zelf oplossen'      },
-  { cat:'Escaleren',         label:'Escaleren'          },
-  { cat:'Afwijzen',          label:'Afwijzen'           },
-  { cat:'Zelf oplossen',     label:'Zelf oplossen'      },
-  { cat:'Security',          label:'Security'           },
-  { cat:'Klacht',            label:'Klacht'             },
-  { cat:'Wijziging',         label:'Wijziging'          },
-  { cat:'TOPdesk-onderhoud', label:'TOPdesk-onderhoud'  },
-  { cat:'Gebruikersvraag',   label:'Gebruikersvraag'    },
+  { cat:'Gebruikersvraag',   label:'Gebruikersvraag'   },
+  { cat:'Zelf oplossen',     label:'Zelf oplossen'     },
+  { cat:'Escaleren',         label:'Escaleren'         },
+  { cat:'Afwijzen',          label:'Afwijzen'          },
+  { cat:'Zelf oplossen',     label:'Zelf oplossen'     },
+  { cat:'Security',          label:'Security'          },
+  { cat:'Klacht',            label:'Klacht'            },
+  { cat:'Wijziging',         label:'Wijziging'         },
+  { cat:'TOPdesk-onderhoud', label:'TOPdesk-onderhoud' },
+  { cat:'Gebruikersvraag',   label:'Gebruikersvraag'   },
 ];
 
 const AANHEF = {
@@ -192,11 +304,11 @@ function vandaag() {
     { day:'2-digit', month:'2-digit', year:'numeric' });
 }
 function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+  return String(s||'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// Haal contactgegevens uit de eerste 3 regels van de omschrijving
 function parseContact(omschr) {
   const regels = omschr.split('\n');
   const contact = {};
@@ -220,36 +332,32 @@ function parseContact(omschr) {
 
 function genereer() {
   ronde++;
-
-  // Bouw pools per categorie
   const pools = {};
   for (const { cat } of SELECTIE) {
     if (!pools[cat]) pools[cat] = DATA.filter(m => m.categorie === cat);
   }
 
-  // Trek 10 meldingen
   const geselecteerd = [];
   const gebruikteNrs = new Set();
-
   for (const { cat, label } of SELECTIE) {
     const pool = pools[cat] || [];
     if (!pool.length) continue;
     let melding, pogingen = 0;
-    do { melding = pool[Math.floor(Math.random() * pool.length)]; pogingen++; }
-    while (gebruikteNrs.has(melding.nr) && pogingen < 15);
+    do {
+      melding = pool[Math.floor(Math.random() * pool.length)];
+      pogingen++;
+    } while (gebruikteNrs.has(melding.nr) && pogingen < 15);
     gebruikteNrs.add(melding.nr);
     geselecteerd.push({ melding, label });
   }
 
-  // Dubbelen?
   const nrs = geselecteerd.map(g => g.melding.nr);
   const dubbel = nrs.length !== new Set(nrs).size;
   document.getElementById('dubbelWarn').style.display = dubbel ? 'block' : 'none';
 
-  // Render
   const datum = vandaag();
   document.getElementById('grid').innerHTML =
-    geselecteerd.map(({ melding: m, label }, i) => {
+    geselecteerd.map(({ melding: m, label }) => {
       const aanhef = AANHEF[m.categorie] || 'Beste collega,';
       const { contact, tekst } = parseContact(m.omschrijving);
       return `
