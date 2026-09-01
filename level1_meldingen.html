@@ -112,6 +112,7 @@
   .download-info h3 { font-size: 15px; font-weight: 700; color: var(--blauw); margin-bottom: 4px; }
   .download-info p  { font-size: 13px; color: #4a5568; }
   .btn-download {
+    cursor: pointer;
     display: inline-flex; align-items: center; gap: 8px;
     background: var(--blauw); color: white;
     padding: 11px 22px; border-radius: 6px;
@@ -331,9 +332,9 @@
         <h3>Registratieformulier Level 1 — Basis</h3>
         <p>Word-bestand · 10 invulblokken · digitaal in te vullen en in te leveren</p>
       </div>
-      <a class="btn-download" href="https://mvo1978.github.io/Summa-opdrachten/Registratieformulier_Level1.docx" download>
+      <button class="btn-download" onclick="window.open('https://mvo1978.github.io/Summa-opdrachten/Registratieformulier_Level1.docx', '_blank')">
         ⬇️ Download formulier
-      </a>
+      </button>
     </div>
   </div>
 
