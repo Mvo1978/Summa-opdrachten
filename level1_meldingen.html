@@ -207,6 +207,22 @@
     .contact-blok { grid-template-columns: 1fr; }
     .download-sectie { flex-direction: column; }
   }
+
+  .blok-grijs      { border-left: 6px solid #718096; }
+  .blok-blauw-licht{ border-left: 6px solid #3182ce; }
+  .blok-geel       { border-left: 6px solid #d69e2e; }
+
+  .lever-lijst {
+    list-style: none; padding: 0;
+    display: grid; gap: 10px; margin-top: 4px;
+  }
+  .lever-lijst li {
+    display: flex; gap: 14px; align-items: flex-start;
+    font-size: 14px; line-height: 1.6;
+    padding: 10px 14px; border-radius: 8px;
+    background: #f8f9fa; border: 1px solid #e0e2e5;
+  }
+  .lever-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
 </style>
 </head>
 <body>
@@ -220,6 +236,78 @@
 </header>
 
 <div class="container">
+
+  <!-- BLOK 0: CONTEXT -->
+  <div class="blok blok-grijs">
+    <h2>🏢 Context</h2>
+    <p>
+      Summa College heeft een interne servicedesk die alle ICT-meldingen afhandelt van medewerkers
+      en studenten. De servicedesk ontvangt dagelijks tientallen meldingen via e-mail, telefoon
+      en aan de balie. Denk aan kapotte apparatuur, softwareproblemen, vragen over programma's
+      en verzoeken om iets te installeren of aan te passen.
+    </p>
+    <p>
+      Tot nu toe werden meldingen niet altijd even zorgvuldig geregistreerd. Daardoor werden
+      problemen soms vergeten, contactgegevens klopten niet en was het onduidelijk wie waarvoor
+      verantwoordelijk was. Het hoofd van de servicedesk wil dit verbeteren en vraagt jou om
+      meldingen voortaan correct en volledig te registreren.
+    </p>
+    <p>
+      Jij bent als eerstejaars ICT-student voor een dag medewerker bij de servicedesk van
+      Summa College. Er komen 10 meldingen binnen. Jouw taak: elke melding correct afhandelen
+      en registreren in het registratieformulier.
+    </p>
+  </div>
+
+  <!-- BLOK 0b: OP TE LEVEREN -->
+  <div class="blok blok-blauw-licht">
+    <h2>📦 Op te leveren</h2>
+    <ul class="lever-lijst">
+      <li>
+        <span class="lever-icon">📋</span>
+        <span>Een volledig ingevuld <strong>registratieformulier</strong> met alle 10 meldingen correct verwerkt</span>
+      </li>
+      <li>
+        <span class="lever-icon">👤</span>
+        <span>Per melding de <strong>contactgegevens</strong> van de melder correct overgenomen (naam, gebouw/kamer, e-mail, telefoon)</span>
+      </li>
+      <li>
+        <span class="lever-icon">🔧</span>
+        <span>Per melding een duidelijke <strong>omschrijving van het probleem</strong> in eigen woorden</span>
+      </li>
+      <li>
+        <span class="lever-icon">✅</span>
+        <span>Per melding: een <strong>directe oplossing</strong> (als het probleem meteen oplosbaar is) <em>of</em> gerichte <strong>vervolgvragen</strong> (als je meer informatie nodig hebt)</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- BLOK 0c: BEOORDELINGSPUNTEN -->
+  <div class="blok blok-geel">
+    <h2>📊 Beoordelingspunten</h2>
+    <ul class="lever-lijst">
+      <li>
+        <span class="lever-icon">✔️</span>
+        <span>Alle contactgegevens zijn volledig en correct overgenomen uit de melding</span>
+      </li>
+      <li>
+        <span class="lever-icon">✔️</span>
+        <span>De omschrijving van het probleem is duidelijk, volledig en in eigen woorden geformuleerd</span>
+      </li>
+      <li>
+        <span class="lever-icon">✔️</span>
+        <span>De directe oplossing of vervolgvragen zijn passend bij het type melding</span>
+      </li>
+      <li>
+        <span class="lever-icon">✔️</span>
+        <span>Het registratieformulier is netjes en volledig ingevuld voor alle 10 meldingen</span>
+      </li>
+      <li>
+        <span class="lever-icon">✔️</span>
+        <span>Het formulier is tijdig ingeleverd via Canvas</span>
+      </li>
+    </ul>
+  </div>
 
   <!-- BLOK 1: OPDRACHTOMSCHRIJVING -->
   <div class="blok blok-groen">
@@ -255,8 +343,7 @@
       <li>
         <span class="stap-nr">4</span>
         <span class="stap-tekst">
-          Vul voor elke melding het registratieformulier in
-          (zie het overzicht van in te vullen gegevens hieronder).
+          Vul voor elke melding het <strong>registratieformulier</strong> in.
         </span>
       </li>
       <li>
