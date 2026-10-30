@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level 3 — Servicedesk Meldingen</title>
+<style>
+  :root {
+    --blauw:    #1e3a5f;
+    --groen:    #70ad47;
+    --groen-bg: #e2efda;
+    --groen-fg: #375623;
+    --grijs:    #f2f2f2;
+    --rand:     #d0d7de;
+    --font:     'Segoe UI', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: #f5f7fa; color: #1a202c; min-height: 100vh; }
+
+  /* HEADER */
+  .header {
+    background: var(--blauw); color: white;
+    padding: 18px 32px; display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  }
+  .badge {
+    background: #d69e2e; color: white;
+    font-size: 12px; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px; letter-spacing: .5px;
+  }
+  .header h1 { font-size: 18px; font-weight: 600; }
+  .header p  { font-size: 12px; opacity: .7; margin-top: 2px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+
+  /* BLOKKEN */
+  .blok {
+    background: white; border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    padding: 24px 28px; margin-bottom: 20px;
+  }
+  .blok-groen { border-left: 6px solid var(--groen); }
+  .blok-blauw { border-left: 6px solid var(--blauw); }
+  .blok-oranje { border-left: 6px solid #e07b00; }
+
+  .blok h2 {
+    font-size: 16px; font-weight: 700; color: var(--blauw);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .blok p {
+    font-size: 14px; line-height: 1.7; color: #2d3748; margin-bottom: 12px;
+  }
+  .blok p:last-child { margin-bottom: 0; }
+
+  /* STAPPEN */
+  .stappen { list-style: none; padding: 0; display: grid; gap: 10px; margin-bottom: 14px; }
+  .stappen li {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--groen-bg); border-radius: 8px;
+    padding: 12px 16px; font-size: 14px; line-height: 1.6;
+  }
+  .stap-nr {
+    background: var(--groen); color: white; font-weight: 700; font-size: 13px;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .stap-tekst strong { color: var(--blauw); }
+
+  /* TIP */
+  .tip {
+    background: #fff9e6; border: 1px solid #ffc107;
+    border-radius: 8px; padding: 12px 16px;
+    font-size: 13.5px; color: #7d6608; line-height: 1.6;
+  }
+  .tip strong { color: #5a4606; }
+
+  /* FORMULIER SECTIE */
+  .formulier-uitleg {
+    font-size: 14px; line-height: 1.7; color: #2d3748; margin-bottom: 16px;
+  }
+  .formulier-velden {
+    background: var(--grijs); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 20px;
+  }
+  .formulier-velden h3 {
+    font-size: 14px; font-weight: 700; color: var(--blauw);
+    margin-bottom: 10px;
+  }
+  .veld-lijst {
+    list-style: none; padding: 0; display: grid; gap: 6px;
+  }
+  .veld-lijst li {
+    font-size: 13.5px; display: flex; gap: 10px; align-items: flex-start;
+    padding: 4px 0; border-bottom: 1px solid #e0e2e5;
+    line-height: 1.5;
+  }
+  .veld-lijst li:last-child { border-bottom: none; }
+  .veld-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .veld-naam { font-weight: 600; color: #1a202c; min-width: 180px; }
+  .veld-info { color: #4a5568; }
+
+  /* DOWNLOAD KNOP */
+  .download-sectie {
+    display: flex; align-items: center; gap: 16px;
+    background: #f0f4f8; border-radius: 10px;
+    padding: 18px 22px; flex-wrap: wrap;
+  }
+  .download-icoon {
+    font-size: 40px; flex-shrink: 0;
+  }
+  .download-info { flex: 1; }
+  .download-info h3 { font-size: 15px; font-weight: 700; color: var(--blauw); margin-bottom: 4px; }
+  .download-info p  { font-size: 13px; color: #4a5568; }
+  .btn-download {
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blauw); color: white;
+    padding: 11px 22px; border-radius: 6px;
+    font-family: var(--font); font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: background .15s;
+    white-space: nowrap;
+  }
+  .btn-download:hover { background: #274f80; }
+
+  /* MELDINGEN SECTIE */
+  .controls {
+    display: flex; gap: 12px; align-items: center;
+    margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .btn {
+    padding: 10px 22px; border: none; border-radius: 6px;
+    font-family: var(--font); font-size: 14px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    transition: background .15s, transform .1s;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-genereer {
+    background: var(--blauw); color: white; font-size: 15px; padding: 12px 28px;
+  }
+  .btn-genereer:hover { background: #274f80; }
+  .btn-pdf { background: #c0392b; color: white; display: none; }
+  .btn-pdf:hover { background: #a93226; }
+  .teller {
+    font-size: 13px; color: #4a5568; background: var(--grijs);
+    padding: 6px 14px; border-radius: 20px; display: none;
+  }
+  .dubbel-warn {
+    background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px;
+    padding: 10px 16px; font-size: 13px; color: #856404; margin-bottom: 14px; display: none;
+  }
+
+  /* MELDING KAART */
+  .grid { display: grid; gap: 10px; }
+  .kaart {
+    background: white; border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    border-left: 5px solid var(--groen); overflow: hidden;
+  }
+  .email-kop {
+    background: var(--grijs); border-bottom: 1px solid var(--rand);
+    padding: 12px 18px;
+    display: grid; grid-template-columns: 90px 1fr;
+    gap: 2px 12px; font-size: 13px;
+  }
+  .email-kop .lbl { color: #4a5568; font-weight: 700; }
+  .email-kop .onderwerp { font-weight: 700; color: var(--blauw); }
+  .cat-badge {
+    display: inline-block; background: var(--groen-bg); color: var(--groen-fg);
+    font-size: 10.5px; font-weight: 700; padding: 2px 10px; border-radius: 12px;
+    margin-left: 8px; vertical-align: middle; text-transform: uppercase; letter-spacing: .4px;
+  }
+  .contact-blok {
+    background: #f0f4f8; border-bottom: 1px solid var(--rand);
+    padding: 10px 18px;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 4px 20px; font-size: 12.5px;
+  }
+  .contact-item { display: flex; gap: 8px; align-items: center; }
+  .contact-icon { font-size: 14px; opacity: .7; }
+  .contact-lbl  { color: #4a5568; font-weight: 600; min-width: 60px; }
+  .contact-val  { color: #1a202c; }
+  .email-body { padding: 14px 18px 18px; }
+  .aanhef { color: #4a5568; font-size: 13.5px; margin-bottom: 10px; }
+  .tekst  { font-size: 14px; line-height: 1.7; white-space: pre-wrap; margin-bottom: 12px; }
+  .groet  { color: #4a5568; font-size: 13.5px; }
+
+  .leeg { text-align: center; padding: 50px 20px; color: #718096; }
+  .leeg .icoon { font-size: 48px; margin-bottom: 14px; }
+  .leeg h3 { font-size: 17px; margin-bottom: 6px; color: var(--blauw); }
+  .leeg p  { font-size: 14px; }
+
+  /* PRINT */
+  @media print {
+    .header .badge, .blok, .controls, .dubbel-warn { display: none !important; }
+    body { background: white; }
+    .container { padding: 0; max-width: 100%; }
+    .kaart {
+      box-shadow: none; border: 1px solid #ccc;
+      border-left: 5px solid var(--groen);
+      margin-bottom: 14px; page-break-inside: avoid;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .controls { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+    .contact-blok { grid-template-columns: 1fr; }
+    .download-sectie { flex-direction: column; }
+  }
+
+  .blok-grijs      { border-left: 6px solid #718096; }
+  .blok-blauw-licht{ border-left: 6px solid #3182ce; }
+  .blok-geel       { border-left: 6px solid #d69e2e; }
+
+  .lever-lijst {
+    list-style: none; padding: 0;
+    display: grid; gap: 10px; margin-top: 4px;
+  }
+  .lever-lijst li {
+    display: flex; gap: 14px; align-items: flex-start;
+    font-size: 14px; line-height: 1.6;
+    padding: 10px 14px; border-radius: 8px;
+    background: #f8f9fa; border: 1px solid #e0e2e5;
+  }
+  .lever-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.badge-l3 { background: #c53030; }
+.topdesk-link { text-decoration:none; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div style="font-size:28px">📋</div>
+  <div style="flex:1">
+    <h1>Servicedesk Meldingen <span class="badge badge-l3">⭐⭐⭐ Level 3 — Expert</span></h1>
+    <p>Summa College · ICT Servicedesk Skills</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- BLOK 0: CONTEXT -->
+  <div class="blok blok-grijs">
+    <h2>Situatie (Context)</h2>
+    <p>
+      Je bent inmiddels een ervaren Servicedeskmedewerker. Je kunt meldingen registreren, de
+      prioriteit bepalen en beslissen of je een melding zelf afhandelt of doorzet. Nu werk je
+      zoals een echte servicedesk: je verwerkt de meldingen volledig in <strong>TOPdesk</strong>,
+      volgens de <strong>Service Level Agreement</strong> en de
+      <strong>Procedure meldingen</strong>.
+    </p>
+
+    <h2>Opdracht</h2>
+    <p>
+      De meldingen op level 3 zijn lastiger. Soms staat er meer dan één probleem in een mail,
+      soms ontbreekt er informatie, soms lijkt iets klein maar raakt het veel collega's, en soms
+      valt een verzoek helemaal niet onder de SLA. Lees elke melding daarom zorgvuldig en bepaal
+      zelf wat er moet gebeuren. Er staat niet bij welk soort melding het is.
+    </p>
+    <ul style="margin-top:12px; padding-left:24px; font-size:14px; line-height:2;">
+      <li>Genereer de 10 meldingen met de <strong>"Genereer 10 meldingen"</strong> knop</li>
+      <li>Verwerk elke melding in TOPdesk volgens de SLA en de Procedure meldingen</li>
+      <li>Lever de gegenereerde meldingen in, samen met de meldingnummers uit TOPdesk</li>
+    </ul>
+  </div>
+
+  <!-- BLOK 2: PRIORITEITENMATRIX EN TOPDESK -->
+  <div class="blok blok-blauw">
+    <h2>Prioriteitenmatrix</h2>
+    <div style="overflow-x:auto; margin-bottom:20px;">
+    <table style="border-collapse:collapse; font-family:Calibri,Arial,sans-serif; font-size:13px; width:100%;">
+      <thead>
+        <tr>
+          <th style="border:1px solid #999; padding:6px 10px; text-align:left; font-weight:bold;">Prioriteitenmatrix</th>
+          <th colspan="3" style="border:1px solid #999; padding:6px 10px; text-align:center; font-weight:normal;">Impact</th>
+        </tr>
+        <tr>
+          <td style="border:1px solid #999; padding:6px 10px; font-weight:bold;">Urgentie</td>
+          <th style="border:1px solid #999; padding:6px 10px; text-align:center; font-weight:normal;">Vestiging</th>
+          <th style="border:1px solid #999; padding:6px 10px; text-align:center; font-weight:normal;">Afdeling / Team</th>
+          <th style="border:1px solid #999; padding:6px 10px; text-align:center; font-weight:normal;">Individu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border:1px solid #999; padding:6px 10px;">Kan niet werken</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P1</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P3</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P5</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #999; padding:6px 10px;">Kan deels werken</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P2</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P4</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P6</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #999; padding:6px 10px;">Kan werken</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P4</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P5</td>
+          <td style="border:1px solid #999; padding:6px 10px; text-align:center;">P7</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="download-sectie">
+      <div class="download-icoon">🖥️</div>
+      <div class="download-info">
+        <h3>TOPdesk — Studenten ICT Servicedesk</h3>
+        <p>Log in als behandelaar en verwerk de meldingen volgens de SLA en de procedure</p>
+      </div>
+      <a class="btn-download topdesk-link" href="https://studentenictservicedesk.topdesk.net/" target="_blank" rel="noopener">
+        ↗️ Open TOPdesk
+      </a>
+    </div>
+    <div class="download-sectie" style="margin-top:12px;">
+      <div class="download-icoon">📄</div>
+      <div class="download-info">
+        <h3>Service Level Agreement</h3>
+        <p>Afspraken over prioriteiten, impact, urgentie en doorlooptijden</p>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a class="btn-download topdesk-link" href="Service_Level_Agreement.pdf" target="_blank" rel="noopener">👁️ Openen</a>
+        <a class="btn-download topdesk-link" href="Service_Level_Agreement.docx" download>⬇️ Downloaden</a>
+      </div>
+    </div>
+    <div class="download-sectie" style="margin-top:12px;">
+      <div class="download-icoon">📘</div>
+      <div class="download-info">
+        <h3>Procedure meldingen</h3>
+        <p>Werkwijze van de servicedesk: registreren, afhandelen, escaleren en wijzigingen</p>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a class="btn-download topdesk-link" href="Procedure_Meldingen.pdf" target="_blank" rel="noopener">👁️ Openen</a>
+        <a class="btn-download topdesk-link" href="Procedure_Meldingen.docx" download>⬇️ Downloaden</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOK 3: MELDINGEN GENEREREN -->
+  <div class="blok blok-oranje">
+    <h2>Jouw 10 meldingen</h2>
+    <p>Klik op de knop om 10 willekeurige meldingen te genereren. Elke klik geeft een nieuwe combinatie. Druk ze af of sla ze op als PDF zodra je tevreden bent, zodat je ze kunt inleveren.</p>
+
+    <div class="controls" style="margin-top:16px">
+      <button class="btn btn-genereer" onclick="genereer()">🔀 Genereer 10 meldingen</button>
+      <button class="btn btn-pdf" id="btnPdf" onclick="afdrukken()">🖨️ Afdrukken / PDF</button>
+      <span class="teller" id="teller"></span>
+    </div>
+
+    <div class="dubbel-warn" id="dubbelWarn">
+      ⚠️ Er zijn dubbele meldingen. Klik opnieuw op "Genereer 10 meldingen".
+    </div>
+  </div>
+
+  <!-- MELDINGEN GRID -->
+  <div class="grid" id="grid">
+    <div class="leeg">
+      <div class="icoon">📬</div>
+      <h3>Nog geen meldingen geladen</h3>
+      <p>Klik hierboven op "Genereer 10 meldingen" om te beginnen.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DATA = [{"nr": "L3-Z1", "naam": "Renske van der Heide", "onderwerp": "Teams-vergadering zonder geluid", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.14\nE-mail: r.vanderheide@topdesk.nl\nTelefoon: 06-32223334\n\nOver tien minuten begint mijn sollicitatiegesprek via Teams met een kandidaat van buiten. Ik heb net een testgesprek gedaan en ik hoor niemand, de ander hoort mij wel. Gisteren werkte alles nog. Sinds vanochtend gebruik ik een nieuwe headset die ik van een collega heb overgenomen. Kan iemand mij nu helpen? Ik zit in mijn kamer."}, {"nr": "L3-Z2", "naam": "Hannes Ching", "onderwerp": "Excel loopt vast bij openen omzetbestand", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.10\nE-mail: h.ching@topdesk.nl\nTelefoon: 06-43445566\n\nHet bestand Omzet_Q3.xlsx op de afdelingsschijf loopt vast zodra ik het open. Andere Excel-bestanden openen gewoon. Mijn collega's Frank en Simone hebben hetzelfde probleem met dit bestand. We moeten de cijfers morgenochtend om 9:00 uur presenteren aan de directie. Het bestand is gisteren door iemand aangepast, maar we weten niet door wie."}, {"nr": "L3-Z3", "naam": "Lieve Degruyter", "onderwerp": "Pdf's openen in de verkeerde app", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 3.04\nE-mail: l.degruyter@topdesk.nl\nTelefoon: 06-65667788\n\nSinds de update van vorige week openen al mijn pdf-bestanden in de browser in plaats van in Acrobat. Daardoor kan ik geen formulieren meer ondertekenen. Ik heb al geprobeerd Acrobat opnieuw te starten. Ik moet vandaag nog drie contracten ondertekenen, maar dat kan ook morgenochtend."}, {"nr": "L3-Z4", "naam": "Michael Kraft", "onderwerp": "OneDrive vol en synchronisatie gestopt", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.09\nE-mail: m.kraft@topdesk.nl\nTelefoon: 06-76667778\n\nIk krijg een melding dat mijn OneDrive vol is en dat synchroniseren is gestopt. Ik werk op een laptop en ben morgen de hele dag op locatie bij een leverancier, waar ik de bestanden nodig heb. Ik heb geen idee welke bestanden zoveel ruimte innemen. Ik wil geen bestanden kwijtraken."}, {"nr": "L3-Z5", "naam": "Nancy van Elsacker", "onderwerp": "Printen lukt niet, alleen bij mij", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.01\nE-mail: n.vanelsacker@topdesk.nl\nTelefoon: 06-54556677\n\nIk kan niet printen naar de printer op de gang. Mijn collega's naast mij kunnen het wel. In de printerwachtrij staan nog vijf opdrachten van vanochtend met de status 'Fout'. Ik heb de laptop al opnieuw opgestart. Het is niet heel dringend, ik kan de documenten ook mailen."}, {"nr": "L3-Z6", "naam": "Doeke van Bergen", "onderwerp": "Outlook-agenda van collega niet zichtbaar", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.02\nE-mail: d.vanbergen@topdesk.nl\nTelefoon: 06-60789012\n\nIk ben secretaresse van Hannes van Grinsven en beheer zijn agenda. Sinds gisteren zie ik zijn agenda niet meer in mijn Outlook. Hannes zegt dat hij niets heeft veranderd. Ik moet vandaag vergaderingen voor hem inplannen met externe partijen. Andere gedeelde agenda's zie ik wel."}, {"nr": "L3-Z7", "naam": "Berry Dieleman", "onderwerp": "Windows start steeds opnieuw op", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 1.09\nE-mail: b.dieleman@topdesk.nl\nTelefoon: 06-21223344\n\nMijn pc start steeds opnieuw op met de melding 'Updates worden geïnstalleerd, 30%'. Daarna begint hij weer opnieuw. Dit gaat al sinds 8:00 uur zo. Ik kan helemaal niet werken. Ik heb geen laptop en er is geen vrije werkplek op onze afdeling."}, {"nr": "L3-Z8", "naam": "Marianne Griffioen", "onderwerp": "Bestanden in de map Projecten zijn weg", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.11\nE-mail: m.griffioen@topdesk.nl\nTelefoon: 06-33445566\n\nIn de map Projecten op de afdelingsschijf zijn alle bestanden van het project 'Nieuwbouw' verdwenen. Ik denk dat ik ze per ongeluk naar een andere map heb gesleept, want ik werkte gisteren met twee vensters tegelijk. Ik weet niet meer welke map. Kun je ze terugzetten? Het hele projectteam van zes mensen heeft ze vandaag nodig."}, {"nr": "L3-Z9", "naam": "Victor Kooler", "onderwerp": "VLC speelt video's zonder beeld", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.08\nE-mail: v.kooler@topdesk.nl\nTelefoon: 06-98990011\n\nVoor de training die ik morgenmiddag geef wil ik een filmpje laten zien. In VLC hoor ik wel het geluid, maar het beeld blijft zwart. Andere filmpjes doen het wel. Het filmpje heb ik van een externe trainer gekregen via WeTransfer."}, {"nr": "L3-Z10", "naam": "Jeroen Versloot", "onderwerp": "Inloggen lukt niet na vakantie", "categorie": "Zelf oplossen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.04\nE-mail: j.versloot@topdesk.nl\nTelefoon: 06-20345678\n\nIk ben vandaag terug van drie weken vakantie en kan niet meer inloggen op mijn pc. Ik krijg de melding dat mijn wachtwoord is verlopen, maar als ik een nieuw wachtwoord invoer, krijg ik de melding dat het niet aan de eisen voldoet. Ik heb al vijf keer iets geprobeerd. Ik bel vanaf het toestel van mijn collega."}, {"nr": "L3-G1", "naam": "Leontine Dekker", "onderwerp": "Vraag over delen van grote bestanden", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.11\nE-mail: l.dekker@topdesk.nl\nTelefoon: 06-65556667\n\nIk moet een videobestand van 4 GB naar een externe partij sturen. Via de mail lukt dat niet. Mijn collega zegt dat ik het via mijn eigen Dropbox kan doen, maar ik weet niet of dat mag. Wat is de beste manier? Het moet vóór vrijdag verstuurd zijn."}, {"nr": "L3-G2", "naam": "Camilo van Trijp", "onderwerp": "Hoe zet ik een afwezigheidsmelding aan?", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.15\nE-mail: c.vantrijp@topdesk.nl\nTelefoon: 06-40567890\n\nIk ga morgen drie weken op vakantie. Hoe zet ik een afwezigheidsmelding aan in Outlook? Ik wil ook dat mails van een paar vaste klanten automatisch naar mijn collega Anne gaan. Kan dat allebei tegelijk?"}, {"nr": "L3-G3", "naam": "Anne Thiadens", "onderwerp": "Vraag over meerdere bureaubladen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.14\nE-mail: a.thiadens@topdesk.nl\nTelefoon: 06-70890123\n\nEen collega vertelde dat je in Windows meerdere bureaubladen kunt maken zodat je overzicht houdt. Hoe werkt dat precies? En blijven die bureaubladen bewaard als ik mijn laptop afsluit?"}, {"nr": "L3-G4", "naam": "Hanneke Heijdemans", "onderwerp": "Vraag over SAP-rapportage", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.11\nE-mail: h.heijdemans@topdesk.nl\nTelefoon: 06-50678901\n\nIk wil in SAP een overzicht maken van alle openstaande inkooporders per leverancier, maar ik kan de juiste rapportage niet vinden. Een collega van de andere vestiging kan dat wel. Hoe kom ik daaraan?"}, {"nr": "L3-G5", "naam": "Frank Meert", "onderwerp": "Excel: formule geeft #VERW!", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.06\nE-mail: f.meert@topdesk.nl\nTelefoon: 06-98889990\n\nIn mijn planning in Excel krijg ik bij een aantal cellen #VERW!. Dit gebeurde nadat ik een kolom had verwijderd. Hoe los ik dit op zonder dat ik alles opnieuw moet invoeren? Het bestand is alleen voor mij."}, {"nr": "L3-G6", "naam": "Simone Verlage", "onderwerp": "Teams-vergadering opnemen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.08\nE-mail: s.verlage@topdesk.nl\nTelefoon: 06-54334445\n\nIk organiseer volgende week een Teams-vergadering met dertig deelnemers, onder wie een paar externe deelnemers. Ik wil de vergadering opnemen zodat mensen die er niet bij kunnen, die later kunnen terugkijken. Hoe doe ik dat en waar wordt de opname opgeslagen? Moet ik de deelnemers vooraf iets laten weten?"}, {"nr": "L3-G7", "naam": "Wilco Kamp", "onderwerp": "Wat is het verschil tussen OneDrive en de afdelingsschijf?", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.04\nE-mail: w.kamp@topdesk.nl\nTelefoon: 06-87778889\n\nIk ben net begonnen bij de afdeling Inkoop. Ik zie dat collega's soms bestanden in OneDrive zetten en soms op de afdelingsschijf. Wat is het verschil en waar moet ik mijn werkbestanden opslaan?"}, {"nr": "L3-G8", "naam": "Dirk-Jan Flips", "onderwerp": "Hoe maak ik een schermafbeelding van een deel van het scherm?", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.02\nE-mail: d.flips@topdesk.nl\nTelefoon: 06-21001112\n\nVoor een handleiding wil ik schermafbeeldingen maken van alleen een deel van mijn scherm, met pijlen erin. Ik heb gehoord dat er een programma voor is op mijn laptop. Welk programma is dat en hoe werkt het?"}, {"nr": "L3-G9", "naam": "Chris Limbach", "onderwerp": "Mail versleuteld versturen", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.13\nE-mail: c.limbach@topdesk.nl\nTelefoon: 06-87889900\n\nIk moet een bestand met salarisgegevens naar het externe administratiekantoor sturen. Mag dat gewoon via Outlook, of moet ik de mail versleutelen? Zo ja, hoe doe ik dat?"}, {"nr": "L3-G10", "naam": "Rik Prince", "onderwerp": "Vraag over Dreamweaver-licentie", "categorie": "Gebruikersvraag", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.03\nE-mail: r.prince@topdesk.nl\nTelefoon: 06-90012345\n\nIk wil leren werken met Dreamweaver om zelf kleine aanpassingen aan onze afdelingspagina te doen. Staat het programma al op mijn pc, en zo niet, hoe kom ik eraan? Ik heb er wel toestemming voor van mijn leidinggevende."}, {"nr": "L3-E1", "naam": "Erik van de Wiel", "onderwerp": "Netwerk valt steeds weg op tweede verdieping", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.07\nE-mail: e.vandewiel@topdesk.nl\nTelefoon: 06-80901234\n\nSinds vanochtend valt het netwerk op de hele tweede verdieping van gebouw C elke paar minuten weg, zowel bedraad als wifi. Ongeveer 25 collega's hebben er last van. Teams-gesprekken worden telkens verbroken. Op de begane grond werkt alles normaal. De schoonmaker heeft gisteravond in de serverruimte op deze verdieping gestofzuigd."}, {"nr": "L3-E2", "naam": "Martine de Roos", "onderwerp": "Lift staat stil tussen verdiepingen", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.10\nE-mail: m.deroos@topdesk.nl\nTelefoon: 06-88990011\n\nDe lift in gebouw A staat stil tussen de eerste en tweede verdieping. Er zit niemand in, maar de deuren gaan niet open. Mijn collega in een rolstoel kan nu niet naar haar werkplek op de derde verdieping. Ik weet niet of het 'klein' is, maar het is wel vervelend."}, {"nr": "L3-E3", "naam": "Karel Verstappen", "onderwerp": "Server reageert traag", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 3.13\nE-mail: k.verstappen@topdesk.nl\nTelefoon: 06-66778899\n\nHet openen van bestanden van de afdelingsschijf duurt sinds gisteren minuten in plaats van seconden. Alle afdelingen in gebouw C hebben hier last van. Op de server zag ik een melding over een bijna volle schijf, maar ik weet niet zeker of dat er iets mee te maken heeft. We kunnen nog wel werken, maar het gaat heel traag."}, {"nr": "L3-E4", "naam": "Hannes van Grinsven", "onderwerp": "Exact geeft foutmelding bij boeken", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.05\nE-mail: h.vangrinsven@topdesk.nl\nTelefoon: 06-21112223\n\nBij het boeken van facturen in Exact krijg ik sinds vanochtend de foutmelding 'Database locked – contact your administrator'. Mijn twee collega's van de financiële administratie hebben hetzelfde. Vandaag is de laatste dag om de maand af te sluiten."}, {"nr": "L3-E5", "naam": "Simone Hoogstra", "onderwerp": "Beamer vergaderzaal valt uit", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.13\nE-mail: s.hoogstra@topdesk.nl\nTelefoon: 06-10889990\n\nDe beamer in vergaderzaal 3.01 in gebouw A valt na tien minuten steeds uit en geeft een oranje knipperend lampje. Morgen om 10:00 uur is er een belangrijke presentatie voor de Raad van Toezicht in deze zaal. Andere vergaderzalen zijn morgen volgeboekt."}, {"nr": "L3-E6", "naam": "Po Chan", "onderwerp": "Airco werkt niet in serverruimte", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.09\nE-mail: p.chan@topdesk.nl\nTelefoon: 06-11223344\n\nToen ik net in de kopieerruimte naast de serverruimte in gebouw A was, viel me op dat het daar erg warm is. De airco van de serverruimte maakt een vreemd ratelend geluid en blaast warme lucht. De thermometer bij de deur geeft 31 graden aan."}, {"nr": "L3-E7", "naam": "Frits Hofman", "onderwerp": "Telefooncentrale: inkomende gesprekken komen niet binnen", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.03\nE-mail: f.hofman@topdesk.nl\nTelefoon: 06-54334445\n\nKlanten laten weten dat ze ons algemene nummer niet kunnen bereiken. Ze krijgen een ingesprektoon. Intern bellen werkt wel. Ook de receptie krijgt geen inkomende gesprekken binnen. Dit is sinds ongeveer een uur zo."}, {"nr": "L3-E8", "naam": "Ibrahim Elkemed", "onderwerp": "Laptop valt uit na koffie", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 1.06\nE-mail: i.elkemed@topdesk.nl\nTelefoon: 06-22334455\n\nIk heb vanochtend koffie over mijn laptop gemorst. Ik heb hem meteen schoongemaakt en hij deed het daarna nog, maar net viel hij uit en gaat hij niet meer aan. Op de laptop staan bestanden die ik nog niet in OneDrive had gezet. Ik heb vanmiddag een presentatie die op de laptop staat."}, {"nr": "L3-E9", "naam": "Henk van Domst", "onderwerp": "Koffieautomaat geeft heet water zonder koffie", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.05\nE-mail: h.vandomst@topdesk.nl\nTelefoon: 06-55667788\n\nDe koffieautomaat op de begane grond van gebouw B geeft alleen nog heet water. Er staat een rode melding 'Storing 47' op het scherm. Iedereen in het gebouw gebruikt deze automaat. Ik weet niet of jullie hierover gaan, maar ik wist niet waar ik het anders moest melden."}, {"nr": "L3-E10", "naam": "Claus Bimmel", "onderwerp": "SAP: orders verdwijnen na opslaan", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.02\nE-mail: c.bimmel@topdesk.nl\nTelefoon: 06-77889900\n\nAls ik in SAP een verkooporder aanmaak en opsla, krijg ik een bevestiging. Maar als ik de order later zoek, is hij er niet. Dit is vandaag al vier keer gebeurd. Ik weet niet of collega's dit ook hebben. Klanten bellen al waar hun bestelling blijft."}, {"nr": "L3-E11", "naam": "Marcel Teppema", "onderwerp": "Switch in vergaderruimte piept", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.06\nE-mail: m.teppema@topdesk.nl\nTelefoon: 06-98778889\n\nIn de technische kast bij vergaderruimte 0.06 in gebouw C piept een kastje met allemaal kabels erin. Er branden oranje lampjes. In de vergaderruimte werkt het internet niet, en ook de twee werkplekken ernaast niet. Er is vanmiddag een training voor 12 nieuwe medewerkers in die ruimte."}, {"nr": "L3-E12", "naam": "Xavier Roth", "onderwerp": "Monitor flikkert en heeft strepen", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.08\nE-mail: x.roth@topdesk.nl\nTelefoon: 06-30456789\n\nMijn monitor flikkert sinds gisteren en er lopen verticale strepen over het beeld. Ik heb een andere kabel geprobeerd van mijn collega, maar dat helpt niet. Ik heb wel last van hoofdpijn door het flikkeren. Ik kan op een tweede monitor verder werken, maar die is erg klein."}, {"nr": "L3-E13", "naam": "Erik Wielermans", "onderwerp": "Werkplek verhuizen naar andere afdeling", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.01\nE-mail: erik.wielermans@topdesk.nl\nTelefoon: 06-00000000\n\nPer 1 december verhuis ik van de afdeling Inkoop in gebouw A naar de afdeling Planning in gebouw D, kamer 2.06. Mijn pc, monitoren en telefoon moeten mee. Mijn nieuwe leidinggevende Frank Meert weet ervan. Kunnen jullie dit regelen?"}, {"nr": "L3-E14", "naam": "Leo Kalkerman", "onderwerp": "Beaufort: verlofsaldo klopt niet", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.08\nE-mail: l.kalkerman@topdesk.nl\nTelefoon: 06-44556677\n\nIn Beaufort staat bij mij een verlofsaldo van 0 uur, terwijl ik vorige maand nog 86 uur had. Ik heb geen verlof opgenomen. Bij twee collega's van mijn team klopt het ook niet. Morgen moet ik verlof aanvragen voor een geplande operatie."}, {"nr": "L3-E15", "naam": "Naoual Dehak", "onderwerp": "Klimaat in kantoortuin onhoudbaar", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.07\nE-mail: n.dehak@topdesk.nl\nTelefoon: 06-54445556\n\nIn de kantoortuin op de eerste verdieping van gebouw D is het al de hele week 15 graden. De verwarming lijkt niet aan te slaan. Collega's zitten met hun jas aan te werken en twee mensen zijn al naar huis gegaan omdat ze het te koud vinden."}, {"nr": "L3-E16", "naam": "Jaap de Vries", "onderwerp": "Printer op afdeling geeft papierstoring", "categorie": "Escaleren", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.07\nE-mail: j.devries@topdesk.nl\nTelefoon: 06-99001122\n\nDe multifunctionele printer op onze afdeling geeft steeds een papierstoring in lade 2. We hebben de lade leeggehaald en er zit geen papier vast. De hele afdeling (15 mensen) print op deze printer. We kunnen wel uitwijken naar de printer op de verdieping hieronder."}, {"nr": "L3-A1", "naam": "Erik van Ginneken", "onderwerp": "Laptop van zoon werkt niet meer", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.12\nE-mail: e.vanginneken@topdesk.nl\nTelefoon: 06-10234567\n\nDe laptop van mijn zoon start niet meer op. Hij heeft morgen een toets en alles staat erop. Ik weet dat jullie het druk hebben, maar jullie zijn zo goed in dit soort dingen. Kan ik hem morgenochtend even langsbrengen? Het zal vast iets kleins zijn."}, {"nr": "L3-A2", "naam": "Dorien t Hart", "onderwerp": "Werkmail op mijn eigen telefoon", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.14\nE-mail: d.thart@topdesk.nl\nTelefoon: 06-32334455\n\nIk wil mijn werkmail en Teams ook op mijn eigen iPhone hebben, zodat ik in het weekend bereikbaar ben. Kunnen jullie de Outlook-app en Teams op mijn telefoon installeren en instellen? Mijn leidinggevende vindt het prima."}, {"nr": "L3-A3", "naam": "Jurgen Koster", "onderwerp": "Exact installeren op thuis-pc", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.01\nE-mail: jurgen.koster@topdesk.nl\nTelefoon: 06-00000000\n\nIk werk vaak 's avonds thuis en wil dan ook boekingen doen. Kunnen jullie Exact op mijn eigen pc thuis installeren? Ik heb de installatiebestanden al op een USB-stick gezet die ik van een collega heb gekregen."}, {"nr": "L3-A4", "naam": "Frederike van der Walting", "onderwerp": "Telefoonnummer van collega", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.13\nE-mail: f.walting@topdesk.nl\nTelefoon: 06-10990001\n\nMijn collega Rik Prince is ziek thuis. Ik wil hem een kaartje sturen en even bellen. Kunnen jullie mij zijn privé-adres en privé-telefoonnummer geven? Die staan vast in jullie systeem."}, {"nr": "L3-A5", "naam": "Erik van de Wiel", "onderwerp": "Extra licenties Visio zonder bestelling", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.07\nE-mail: e.vandewiel@topdesk.nl\nTelefoon: 06-80901234\n\nWe hebben voor het project vijf extra mensen die Visio nodig hebben. Er zijn geen licenties meer over, maar het gaat maar om drie weken. Kunnen jullie het niet gewoon op hun pc's zetten met dezelfde licentiecode als bij mij? Niemand die het merkt."}, {"nr": "L3-A6", "naam": "Hannes van Grinsven", "onderwerp": "Privé-printer instellen", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.05\nE-mail: h.vangrinsven@topdesk.nl\nTelefoon: 06-21112223\n\nIk heb thuis een nieuwe printer gekocht en krijg hem niet aan de praat met mijn eigen laptop. Kan iemand van jullie meekijken via Teams? Het duurt vast maar vijf minuten."}, {"nr": "L3-A7", "naam": "Michael Kraft", "onderwerp": "Spel installeren voor teamuitje", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.09\nE-mail: m.kraft@topdesk.nl\nTelefoon: 06-76667778\n\nVoor het teamuitje volgende week willen we in de pauze een spel spelen dat we hebben gedownload van een gratis website. Kunnen jullie het op de laptops van de vergaderzaal installeren? Het installatiebestand staat op mijn bureaublad."}, {"nr": "L3-A8", "naam": "Lieve Degruyter", "onderwerp": "Fiets kapot in de stalling", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 3.04\nE-mail: l.degruyter@topdesk.nl\nTelefoon: 06-65667788\n\nIemand heeft in de fietsenstalling van gebouw D mijn fietsband lek gestoken. Er hangen daar toch camera's? Kunnen jullie de beelden bekijken wie het was en mij de namen geven?"}, {"nr": "L3-A9", "naam": "Simone Verlage", "onderwerp": "Smartwatch koppelen aan werklaptop", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.08\nE-mail: s.verlage@topdesk.nl\nTelefoon: 06-54334445\n\nIk heb een nieuwe smartwatch gekregen voor mijn verjaardag. Ik wil hem via Bluetooth koppelen aan mijn werklaptop, zodat ik meldingen van Outlook en Teams op mijn horloge zie. Het lukt niet. Kunnen jullie helpen?"}, {"nr": "L3-A10", "naam": "Victor Kooler", "onderwerp": "Bureaustoel versleten", "categorie": "Afwijzen", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.08\nE-mail: v.kooler@topdesk.nl\nTelefoon: 06-98990011\n\nMijn bureaustoel is helemaal versleten, de rugleuning hangt scheef en de hoogte zakt steeds weg. Ik krijg er rugklachten van. Kunnen jullie een nieuwe stoel voor mij regelen? Ik heb al een mooie gezien op internet."}, {"nr": "L3-S1", "naam": "Anne Thiadens", "onderwerp": "Verdachte mail van de directeur", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.14\nE-mail: a.thiadens@topdesk.nl\nTelefoon: 06-70890123\n\nIk kreeg net een mail van onze directeur met de vraag om met spoed tien cadeaukaarten van 100 euro te kopen voor een relatiegeschenk. Hij is vandaag op reis en vraagt of ik de codes naar hem terugmail. Het afzenderadres lijkt op zijn adres, maar er staat 'topdeskk.nl'. Ik heb al op de link in de mail geklikt en mijn gegevens ingevuld, want het moest snel."}, {"nr": "L3-S2", "naam": "Berry Dieleman", "onderwerp": "USB-stick gevonden in de kantine", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 1.09\nE-mail: b.dieleman@topdesk.nl\nTelefoon: 06-21223344\n\nIk heb in de kantine een USB-stick gevonden met een sticker 'Salarissen 2026 – vertrouwelijk'. Ik heb hem in mijn pc gestoken om te kijken van wie hij is, maar er gebeurde niets en nu is mijn pc erg traag. Wat moet ik doen met de stick?"}, {"nr": "L3-S3", "naam": "Doeke van Bergen", "onderwerp": "Rechten op map van HR", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.02\nE-mail: d.vanbergen@topdesk.nl\nTelefoon: 06-60789012\n\nIk heb toegang nodig tot de map HR op de afdelingsschijf, want ik moet een overzicht maken van alle medewerkers die binnenkort jarig zijn. Mijn collega van HR zegt dat het prima is en heeft het wachtwoord van haar account al aan mij gegeven, maar dat werkt niet meer. Kunnen jullie mij gewoon rechten geven?"}, {"nr": "L3-S4", "naam": "Frank Meert", "onderwerp": "Account oud-medewerker nog actief", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.06\nE-mail: f.meert@topdesk.nl\nTelefoon: 06-98889990\n\nIk ben teamleider bij Planning. Wim Janssen is twee maanden geleden uit dienst gegaan, maar ik zie dat hij vanochtend nog is ingelogd in Teams. Zijn account had allang geblokkeerd moeten zijn. Kunnen jullie zijn account direct blokkeren?"}, {"nr": "L3-S5", "naam": "Hanneke Heijdemans", "onderwerp": "Pop-up: bestanden versleuteld", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.11\nE-mail: h.heijdemans@topdesk.nl\nTelefoon: 06-50678901\n\nOp mijn scherm verscheen net een rood venster met de tekst dat mijn bestanden zijn versleuteld en dat ik moet betalen in bitcoins. Ik zie dat de bestanden op de afdelingsschijf nu rare extensies hebben (.locked). Mijn pc staat nog aan en is verbonden met het netwerk. Wat moet ik doen?"}, {"nr": "L3-S6", "naam": "Nancy van Elsacker", "onderwerp": "Wachtwoord resetten voor collega", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.01\nE-mail: n.vanelsacker@topdesk.nl\nTelefoon: 06-54556677\n\nMijn collega Marianne is haar wachtwoord vergeten en zit vandaag thuis. Ze heeft gevraagd of ik haar wachtwoord wil laten resetten en het nieuwe wachtwoord naar mij wil sturen, zodat ik het aan haar door kan geven via WhatsApp."}, {"nr": "L3-S7", "naam": "Wilco Kamp", "onderwerp": "Nieuwe collega heeft nog geen account", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.04\nE-mail: w.kamp@topdesk.nl\nTelefoon: 06-87778889\n\nMijn nieuwe collega Fleur Bakker is vandaag begonnen bij Inkoop, maar heeft nog geen account. Ik ben geen leidinggevende, maar mijn leidinggevende is op vakantie. Kunnen jullie voor haar een account aanmaken met dezelfde rechten als ik? Dan kan ze vandaag al aan de slag."}, {"nr": "L3-S8", "naam": "Karel Verstappen", "onderwerp": "Telefoontje van 'Microsoft'", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 3.13\nE-mail: k.verstappen@topdesk.nl\nTelefoon: 06-66778899\n\nIk werd net gebeld door iemand die zei dat hij van Microsoft was. Hij zei dat mijn pc een virus had en vroeg mij om een programma te installeren zodat hij kon meekijken. Ik heb dat gedaan en hij heeft een kwartier op mijn pc gewerkt. Nu vraagt hij om mijn bankgegevens om de licentie te verlengen. Hij belt over vijf minuten terug."}, {"nr": "L3-S9", "naam": "Chris Limbach", "onderwerp": "Toegang tot Exact voor stagiair", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.13\nE-mail: c.limbach@topdesk.nl\nTelefoon: 06-87889900\n\nIk ben manager van de financiële administratie. Onze stagiair Tim Willems begint maandag. Hij heeft leesrechten nodig in Exact en toegang tot onze afdelingsmap. Ik heb dit vorige week al aangevraagd via de mail, maar nog niets gehoord."}, {"nr": "L3-S10", "naam": "Leontine Dekker", "onderwerp": "Collega laat pc onvergrendeld", "categorie": "Security", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.11\nE-mail: l.dekker@topdesk.nl\nTelefoon: 06-65556667\n\nMijn collega laat zijn pc altijd onvergrendeld als hij weggaat, ook als hij een uur gaat lunchen. Op zijn scherm staan vaak klantgegevens open. Ik heb hem er al op aangesproken, maar hij vindt het overdreven. Kunnen jullie instellen dat zijn pc automatisch vergrendelt?"}, {"nr": "L3-K1", "naam": "Leo Kalkerman", "onderwerp": "Al drie keer gemeld, nog steeds niet opgelost", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 3.08\nE-mail: l.kalkerman@topdesk.nl\nTelefoon: 06-44556677\n\nDit is de derde keer dat ik meld dat mijn docking station het niet doet. Twee weken geleden is er iemand langs geweest die zei dat hij een nieuwe zou bestellen, maar ik heb niets meer gehoord. Ik werk nu al twee weken op het kleine scherm van mijn laptop. Ik vind dit echt onacceptabel en wil weten wie hier verantwoordelijk voor is."}, {"nr": "L3-K2", "naam": "Marianne Griffioen", "onderwerp": "Onvriendelijk behandeld aan de telefoon", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.11\nE-mail: m.griffioen@topdesk.nl\nTelefoon: 06-33445566\n\nVanochtend belde ik de servicedesk omdat mijn printer niet werkte. De medewerker die ik aan de lijn kreeg, was erg kortaf en zei dat ik 'gewoon even de handleiding moest lezen'. Daarna werd de verbinding verbroken. Het printerprobleem is overigens nog steeds niet opgelost."}, {"nr": "L3-K3", "naam": "Erik Wielermans", "onderwerp": "Nieuwe laptop niet goed ingericht", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.01\nE-mail: erik.wielermans@topdesk.nl\nTelefoon: 06-00000000\n\nIk heb vorige week een nieuwe laptop gekregen, maar er stonden mijn programma's niet op en mijn bestanden waren niet overgezet. Ik ben twee dagen bezig geweest om alles zelf weer in te stellen. Bij de vorige vervanging ging dat veel beter. Ik wil dat dit in de toekomst beter geregeld wordt."}, {"nr": "L3-K4", "naam": "Simone Hoogstra", "onderwerp": "Onderhoud midden op de werkdag", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.13\nE-mail: s.hoogstra@topdesk.nl\nTelefoon: 06-10889990\n\nGisteren om 14:00 uur was het netwerk een uur lang onbereikbaar vanwege 'gepland onderhoud'. Niemand van onze afdeling wist hiervan. Daardoor is een belangrijke online sessie met een klant mislukt. Waarom wordt zoiets niet buiten werktijd gedaan en waarom worden we niet geïnformeerd?"}, {"nr": "L3-K5", "naam": "Jeroen Versloot", "onderwerp": "Melding gesloten zonder overleg", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 2.04\nE-mail: j.versloot@topdesk.nl\nTelefoon: 06-20345678\n\nMijn melding over de trage laptop is vandaag op 'afgehandeld' gezet, terwijl het probleem niet is opgelost. Ik heb geen telefoontje of mail gehad. Ik voel me niet serieus genomen. De laptop is overigens nog steeds traag, het opstarten duurt meer dan tien minuten."}, {"nr": "L3-K6", "naam": "Po Chan", "onderwerp": "Wachttijd telefoon servicedesk", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 2.09\nE-mail: p.chan@topdesk.nl\nTelefoon: 06-11223344\n\nIk heb vanochtend 25 minuten in de wacht gestaan bij de servicedesk. Uiteindelijk heb ik maar opgehangen. Dit is niet de eerste keer. Ik vind dat dit beter moet. Mijn eigenlijke vraag was hoe ik een gedeelde mailbox toevoeg in Outlook."}, {"nr": "L3-K7", "naam": "Dirk-Jan Flips", "onderwerp": "Monteur heeft vloer beschadigd", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.02\nE-mail: d.flips@topdesk.nl\nTelefoon: 06-21001112\n\nGisteren is er een monteur geweest om een nieuwe netwerkaansluiting in mijn kamer te leggen. Hij heeft daarbij met zijn kar een diepe kras in het nieuwe parket gemaakt en is weggegaan zonder iets te zeggen. Ik wil dat dit wordt hersteld en dat er iets aan wordt gedaan."}, {"nr": "L3-K8", "naam": "Rik Prince", "onderwerp": "Verkeerd toetsenbord geleverd", "categorie": "Klacht", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 1.03\nE-mail: r.prince@topdesk.nl\nTelefoon: 06-90012345\n\nIk had een ergonomisch toetsenbord aangevraagd vanwege mijn polsklachten. Nu heb ik na drie weken wachten een gewoon toetsenbord gekregen. Niemand heeft mij gebeld of iets gevraagd. Ik ben hier erg ontevreden over, want mijn klachten worden erger."}, {"nr": "L3-W1", "naam": "Hannes Ching", "onderwerp": "Ergonomisch toetsenbord aanvragen", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.10\nE-mail: h.ching@topdesk.nl\nTelefoon: 06-43445566\n\nVolgens de bedrijfsarts heb ik een ergonomisch toetsenbord nodig vanwege beginnende RSI-klachten. Het advies van de bedrijfsarts heb ik als bijlage toegevoegd. Mijn leidinggevende is akkoord. Ik zit in gebouw B, kamer 0.10."}, {"nr": "L3-W2", "naam": "Lieve Degruyter", "onderwerp": "Nieuwe muis, de oude klikt dubbel", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 3.04\nE-mail: l.degruyter@topdesk.nl\nTelefoon: 06-65667788\n\nMijn muis klikt steeds dubbel als ik één keer klik. Daardoor open ik bestanden per ongeluk twee keer en sleep ik dingen naar de verkeerde map. Ik heb hem al schoongemaakt. Mag ik een nieuwe muis?"}, {"nr": "L3-W3", "naam": "Claus Bimmel", "onderwerp": "Tweede monitor en ergonomisch toetsenbord", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 2.02\nE-mail: c.bimmel@topdesk.nl\nTelefoon: 06-77889900\n\nVoor mijn werk als planner heb ik een tweede monitor nodig, want ik werk de hele dag met grote planningen. Daarnaast heeft de bedrijfsarts geadviseerd om een ergonomisch toetsenbord te gebruiken. Mijn leidinggevende vindt beide goed."}, {"nr": "L3-W4", "naam": "Erik van Ginneken", "onderwerp": "Software installeren voor hele afdeling", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.12\nE-mail: e.vanginneken@topdesk.nl\nTelefoon: 06-10234567\n\nOnze afdeling (12 mensen) gaat werken met Notepad++ voor het bewerken van configuratiebestanden. Kunnen jullie het programma op alle pc's van de afdeling installeren? De pc-namen heb ik in de bijlage gezet."}, {"nr": "L3-W5", "naam": "Frits Hofman", "onderwerp": "Nieuwe werkplek voor nieuwe medewerker", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 0.03\nE-mail: f.hofman@topdesk.nl\nTelefoon: 06-54334445\n\nOp 1 december begint een nieuwe medewerker bij de afdeling Planning, gebouw D, kamer 2.06. Hij heeft een pc, twee monitoren, een toetsenbord, een muis, een telefoon en een account nodig. Ik ben zijn leidinggevende. Hoe lang duurt het voordat dit klaar is?"}, {"nr": "L3-W6", "naam": "Henk van Domst", "onderwerp": "PowerShell-script voor back-up", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 0.05\nE-mail: h.vandomst@topdesk.nl\nTelefoon: 06-55667788\n\nIk wil graag dat er elke vrijdagavond automatisch een kopie wordt gemaakt van de map Contracten naar een aparte back-upmap. Ik heb gelezen dat dat met een PowerShell-script op de server kan. Kunnen jullie dat maken?"}, {"nr": "L3-W7", "naam": "Martine de Roos", "onderwerp": "Grotere mailbox nodig", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 1.10\nE-mail: m.deroos@topdesk.nl\nTelefoon: 06-88990011\n\nIk krijg steeds meldingen dat mijn mailbox bijna vol is. Ik heb al veel verwijderd, maar ik moet veel mails bewaren vanwege lopende contracten. Kan mijn mailbox groter worden gemaakt? Mijn leidinggevende vindt het goed."}, {"nr": "L3-W8", "naam": "Xavier Roth", "onderwerp": "Muis met draad in plaats van draadloos", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw A, kamer 0.08\nE-mail: x.roth@topdesk.nl\nTelefoon: 06-30456789\n\nMijn draadloze muis loopt steeds vast, ook met nieuwe batterijen. Ik zou graag een gewone muis met een draad willen. Kan dat?"}, {"nr": "L3-W9", "naam": "Camilo van Trijp", "onderwerp": "Extra netwerkaansluiting in vergaderruimte", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 1.15\nE-mail: c.vantrijp@topdesk.nl\nTelefoon: 06-40567890\n\nIn vergaderruimte 1.15 in gebouw C is maar één netwerkaansluiting. Bij vergaderingen willen vaak meerdere mensen tegelijk bedraad werken, omdat de wifi daar slecht is. Kunnen er vier extra aansluitingen bij komen?"}, {"nr": "L3-W10", "naam": "Naoual Dehak", "onderwerp": "Lightshot installeren", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw D, kamer 0.07\nE-mail: n.dehak@topdesk.nl\nTelefoon: 06-54445556\n\nIk maak veel schermafbeeldingen voor handleidingen. Een collega gebruikt Lightshot en dat werkt heel handig. Kunnen jullie Lightshot ook op mijn pc installeren?"}, {"nr": "L3-W11", "naam": "Michael Kraft", "onderwerp": "Ergonomisch toetsenbord, maar dan Engels", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw B, kamer 3.09\nE-mail: m.kraft@topdesk.nl\nTelefoon: 06-76667778\n\nIk heb van de bedrijfsarts het advies gekregen om een ergonomisch toetsenbord te gaan gebruiken. Ik werk veel met Engelstalige teksten. Is het mogelijk om er een met een Engelse indeling te krijgen? Mijn leidinggevende is akkoord."}, {"nr": "L3-W12", "naam": "Simone Verlage", "onderwerp": "Teams-groep voor projectteam", "categorie": "Wijziging", "omschrijving": "Gebouw / kamer: Gebouw C, kamer 2.08\nE-mail: s.verlage@topdesk.nl\nTelefoon: 06-54334445\n\nVoor het project 'Nieuwbouw gebouw E' willen we een eigen Teams-groep met acht vaste leden en twee externe architecten. Kunnen jullie die aanmaken? Ik ben de projectleider."}];
+
+const SELECTIE = [
+  { cat:'Zelf oplossen',     label:'' },
+  { cat:'Gebruikersvraag',   label:'' },
+  { cat:'Gebruikersvraag',   label:'' },
+  { cat:'Escaleren',         label:'' },
+  { cat:'Escaleren',         label:'' },
+  { cat:'Afwijzen',          label:'' },
+  { cat:'Security',          label:'' },
+  { cat:'Klacht',            label:'' },
+  { cat:'Wijziging',         label:'' },
+  { cat:'Wijziging',         label:'' },
+];
+
+const AANHEF = {};
+
+let ronde = 0;
+
+function vandaag() {
+  return new Date().toLocaleDateString('nl-NL',
+    { day:'2-digit', month:'2-digit', year:'numeric' });
+}
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function parseContact(omschr) {
+  const regels = omschr.split('\n');
+  const contact = {};
+  const rest = [];
+  let inContact = true;
+  for (const regel of regels) {
+    if (inContact && regel.startsWith('Gebouw / kamer:'))
+      contact.gebouw = regel.replace('Gebouw / kamer:', '').trim();
+    else if (inContact && regel.startsWith('E-mail:'))
+      contact.email = regel.replace('E-mail:', '').trim();
+    else if (inContact && regel.startsWith('Telefoon:'))
+      contact.telefoon = regel.replace('Telefoon:', '').trim();
+    else if (inContact && regel.trim() === '')
+      inContact = false;
+    else
+      rest.push(regel);
+  }
+  return { contact, tekst: rest.join('\n').trim() };
+}
+
+function genereer() {
+  ronde++;
+  const pools = {};
+  for (const { cat } of SELECTIE) {
+    if (!pools[cat]) pools[cat] = DATA.filter(m => m.categorie === cat);
+  }
+  const geselecteerd = [];
+  const gebruikteNrs = new Set();
+  for (const { cat, label } of SELECTIE) {
+    const pool = pools[cat] || [];
+    if (!pool.length) continue;
+    let melding, pogingen = 0;
+    do {
+      melding = pool[Math.floor(Math.random() * pool.length)];
+      pogingen++;
+    } while (gebruikteNrs.has(melding.nr) && pogingen < 15);
+    gebruikteNrs.add(melding.nr);
+    geselecteerd.push({ melding, label });
+  }
+
+  for (let i = geselecteerd.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [geselecteerd[i], geselecteerd[j]] = [geselecteerd[j], geselecteerd[i]];
+  }
+
+  const nrs = geselecteerd.map(g => g.melding.nr);
+  const dubbel = nrs.length !== new Set(nrs).size;
+  document.getElementById('dubbelWarn').style.display = dubbel ? 'block' : 'none';
+
+  const datum = vandaag();
+  document.getElementById('grid').innerHTML =
+    geselecteerd.map(({ melding: m, label }) => {
+      const aanhef = 'Beste servicedesk,';
+      const { contact, tekst } = parseContact(m.omschrijving);
+      return `
+      <div class="kaart">
+        <div class="email-kop">
+          <span class="lbl">Van:</span><span>${esc(m.naam)}</span>
+          <span class="lbl">Verzonden:</span><span>${datum}</span>
+          <span class="lbl">Aan:</span><span>Servicedesk</span>
+          <span class="lbl">Onderwerp:</span>
+          <span class="onderwerp">${esc(m.onderwerp)}</span>
+        </div>
+        <div class="contact-blok">
+          <div class="contact-item">
+            <span class="contact-icon">🏢</span>
+            <span class="contact-lbl">Gebouw/kamer</span>
+            <span class="contact-val">${esc(contact.gebouw||'—')}</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📧</span>
+            <span class="contact-lbl">E-mail</span>
+            <span class="contact-val">${esc(contact.email||'—')}</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <span class="contact-lbl">Telefoon</span>
+            <span class="contact-val">${esc(contact.telefoon||'—')}</span>
+          </div>
+        </div>
+        <div class="email-body">
+          <div class="aanhef">${esc(aanhef)}</div>
+          <div class="tekst">${esc(tekst)}</div>
+          <div class="groet">Met vriendelijke groet,<br><strong>${esc(m.naam)}</strong></div>
+        </div>
+      </div>`;
+    }).join('');
+
+  document.getElementById('btnPdf').style.display = 'flex';
+  const t = document.getElementById('teller');
+  t.style.display = 'inline-block';
+  t.textContent = `Ronde ${ronde} — ${datum}`;
+
+  // Scroll naar meldingen
+  document.getElementById('grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function afdrukken() {
+  window.print();
+}
+</script>
+</body>
+</html>
